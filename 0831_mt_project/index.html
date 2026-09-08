@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-MOVE 동아리 MT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17181c;
+    --ink-soft:#5c5f68;
+    --paper:#f8f7f4;
+    --card:#ffffff;
+    --line:#e7e5df;
+
+    --indigo:#2f3ed6;
+    --indigo-soft:#e7e8fb;
+    --coral:#ff5b3d;
+    --coral-soft:#ffe6e0;
+    --mint:#0e9e88;
+    --mint-soft:#dcf3ee;
+    --amber:#f2a325;
+    --amber-soft:#fdedd2;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:var(--indigo);
+    color:#fff;
+    padding:4.6rem 1.5rem 5.5rem;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right:-60px; top:-60px;
+    width:260px; height:260px; border-radius:50%;
+    background:var(--coral);
+    opacity:.9;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:-40px; bottom:-90px;
+    width:200px; height:200px; border-radius:50%;
+    background:var(--amber);
+    opacity:.85;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;position:relative;}
+  .hero-badge{
+    display:inline-block;
+    font-size:.82rem; font-weight:700;
+    background:rgba(255,255,255,.16);
+    padding:.4rem .9rem;
+    border-radius:999px;
+    margin-bottom:1.3rem;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem,7vw,3.6rem);
+    font-weight:900;
+    line-height:1.18;
+    margin:0 0 1rem;
+  }
+  .hero p.lede{
+    font-size:1.05rem;
+    line-height:1.75;
+    color:rgba(255,255,255,.85);
+    max-width:480px;
+    margin:0 0 2.2rem;
+  }
+  .hero-meta{
+    display:flex; gap:1.6rem; flex-wrap:wrap;
+  }
+  .hero-meta div{min-width:120px;}
+  .hero-meta b{display:block;font-size:1.05rem;margin-bottom:.15rem;}
+  .hero-meta span{font-size:.82rem;color:rgba(255,255,255,.7);}
+
+  /* ---------- NAV ---------- */
+  .subnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(248,247,244,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:.7rem 1rem;
+    display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap;
+  }
+  .subnav a{
+    text-decoration:none; color:var(--ink-soft);
+    font-size:.85rem; font-weight:700;
+    padding:.4rem .9rem; border-radius:999px;
+    border:1px solid var(--line);
+  }
+  .subnav a:hover{border-color:var(--indigo);color:var(--indigo);}
+
+  main{max-width:760px;margin:0 auto;padding:3.6rem 1.5rem 1rem;}
+  section{padding-top:2rem;scroll-margin-top:4rem;}
+  .sec-head{margin-bottom:1.8rem;}
+  .sec-label{
+    font-size:.8rem; font-weight:700; color:var(--indigo);
+    margin:0 0 .3rem;
+  }
+  .sec-title{font-size:1.7rem; font-weight:900; margin:0 0 .5rem;}
+  .sec-desc{color:var(--ink-soft); font-size:.96rem; line-height:1.75; margin:0; max-width:56ch;}
+
+  /* ---------- SCHEDULE ---------- */
+  .day-block{margin-bottom:2.6rem;}
+  .day-tag{
+    display:inline-block; font-size:.85rem; font-weight:900;
+    background:var(--ink); color:#fff;
+    padding:.3rem 1rem; border-radius:6px;
+    margin-bottom:1.1rem;
+  }
+  .item{
+    display:grid; grid-template-columns:74px 1fr; gap:1rem;
+    padding:.9rem 0;
+    border-top:1px solid var(--line);
+  }
+  .item:last-child{border-bottom:1px solid var(--line);}
+  .item-time{font-size:.88rem; font-weight:700; color:var(--ink-soft); padding-top:.15rem;}
+  .item-body{display:flex; flex-direction:column; gap:.3rem;}
+  .item-title{font-size:1rem; font-weight:700;}
+  .item-desc{font-size:.88rem; color:var(--ink-soft); line-height:1.6; margin:0;}
+  .chip{
+    display:inline-block; font-size:.7rem; font-weight:800;
+    padding:.15rem .55rem; border-radius:5px; width:fit-content;
+  }
+  .chip.move{background:#eee9dd;color:#8a8271;}
+  .chip.meal{background:var(--amber-soft);color:#a3690b;}
+  .chip.career{background:var(--mint-soft);color:var(--mint);}
+  .chip.fun{background:var(--coral-soft);color:var(--coral);}
+
+  /* ---------- TEAMS ---------- */
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .team-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:1.2rem 1.3rem;
+  }
+  .team-card h3{
+    font-size:.95rem; margin:0 0 .7rem;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .team-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.6rem; height:1.6rem; border-radius:50%;
+    background:var(--indigo); color:#fff;
+    font-size:.78rem; font-weight:900;
+  }
+  .team-card ul{margin:0; padding:0; list-style:none;}
+  .team-card li{
+    font-size:.86rem; color:var(--ink-soft);
+    padding:.3rem 0; border-top:1px dashed var(--line);
+  }
+  .team-card li:first-child{border-top:none;}
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem 1.4rem;
+  }
+  .checklist label{
+    display:flex; align-items:center; gap:.6rem;
+    font-size:.92rem; color:var(--ink);
+    padding:.4rem 0;
+  }
+  .checklist input{width:1.05rem;height:1.05rem;accent-color:var(--indigo);}
+
+  /* ---------- INFO ---------- */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .info-card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:12px; padding:1.2rem 1.3rem;
+  }
+  .info-card h3{font-size:.88rem;color:var(--indigo);margin:0 0 .5rem;}
+  .info-card p{font-size:.92rem;line-height:1.65;margin:0;color:var(--ink);}
+
+  /* ---------- NOTICE ---------- */
+  .notice{
+    background:var(--indigo-soft);
+    border-radius:12px;
+    padding:1.4rem 1.5rem;
+    margin-top:.5rem;
+  }
+  .notice ul{margin:0;padding-left:1.1rem;}
+  .notice li{font-size:.92rem;line-height:1.85;color:var(--ink);}
+
+  footer{
+    max-width:760px;margin:3.5rem auto 0;padding:2rem 1.5rem 4rem;
+    border-top:1px solid var(--line);
+    font-size:.82rem; color:var(--ink-soft);
+    text-align:center;
+  }
+
+  @media (max-width:640px){
+    .hero{padding:3.6rem 1.25rem 4.6rem;}
+    .team-grid, .info-grid, .checklist{grid-template-columns:1fr;}
+    .item{grid-template-columns:60px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">K-MOVE 동아리</span>
+    <h1>도전을 나누는 밤,<br>K-MOVE MT</h1>
+    <p class="lede">해외취업을 꿈꾸는 우리가 한자리에 모입니다. 하루는 진지하게, 하루는 신나게 — 배우고 놀며 채우는 1박 2일입니다.</p>
+    <div class="hero-meta">
+      <div><b>9월 19일(토) ~ 20일(일)</b><span>일시</span></div>
+      <div><b>경남 거제 · 오션뷰 펜션</b><span>장소</span></div>
+      <div><b>4명</b><span>참가 인원</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="subnav">
+  <a href="#schedule">일정표</a>
+  <a href="#checklist">준비물</a>
+  <a href="#info">장소·집합</a>
+  <a href="#notice">유의사항</a>
+</nav>
+
+<main>
+
+  <section id="schedule">
+    <div class="sec-head">
+      <p class="sec-label">SCHEDULE</p>
+      <h2 class="sec-title">일정표</h2>
+      <p class="sec-desc">해외취업 세션과 친목 프로그램을 함께 구성했습니다. 시간은 현장 상황에 따라 조정될 수 있어요.</p>
+    </div>
+
+    <div class="day-block">
+      <span class="day-tag">DAY 1 · 토요일</span>
+
+      <div class="item">
+        <span class="item-time">09:00</span>
+        <div class="item-body">
+          <span class="chip move">이동</span>
+          <span class="item-title">집합 및 출발</span>
+          <p class="item-desc">경성대학교 정문에서 인원 확인 후 렌트카로 출발합니다.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">11:00</span>
+        <div class="item-body">
+          <span class="chip move">이동</span>
+          <span class="item-title">숙소 도착 & 입소</span>
+          <p class="item-desc">짐 정리 후 숙소를 둘러봅니다.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">12:00</span>
+        <div class="item-body">
+          <span class="chip meal">식사</span>
+          <span class="item-title">점심 식사</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">14:00</span>
+        <div class="item-body">
+          <span class="chip fun">레크리에이션</span>
+          <span class="item-title">아이스브레이킹 게임</span>
+          <p class="item-desc">넷이서 가볍게 어울릴 수 있는 게임으로 분위기를 풉니다.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">16:00</span>
+        <div class="item-body">
+          <span class="chip career">세션</span>
+          <span class="item-title">해외취업 특강 — [주제 / 연사명]</span>
+          <p class="item-desc">K-move 선배 또는 초청 연사의 해외취업 경험 공유 세션입니다.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">18:00</span>
+        <div class="item-body">
+          <span class="chip meal">식사</span>
+          <span class="item-title">저녁 식사 & 바비큐</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">20:00</span>
+        <div class="item-body">
+          <span class="chip fun">레크리에이션</span>
+          <span class="item-title">한 명씩 돌아가며 장기자랑</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">23:00</span>
+        <div class="item-body">
+          <span class="chip move">자유시간</span>
+          <span class="item-title">자유 시간 및 취침 준비</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <span class="day-tag">DAY 2 · 일요일</span>
+
+      <div class="item">
+        <span class="item-time">08:00</span>
+        <div class="item-body">
+          <span class="chip meal">식사</span>
+          <span class="item-title">기상 및 아침 식사</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">09:30</span>
+        <div class="item-body">
+          <span class="chip career">세션</span>
+          <span class="item-title">개인별 액션플랜 발표</span>
+          <p class="item-desc">각자 세운 해외취업·어학 준비 계획을 짧게 발표하고 서로 피드백을 나눕니다.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">11:00</span>
+        <div class="item-body">
+          <span class="chip move">정리</span>
+          <span class="item-title">숙소 정리 및 청소</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">12:00</span>
+        <div class="item-body">
+          <span class="chip meal">식사</span>
+          <span class="item-title">점심 식사</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">13:30</span>
+        <div class="item-body">
+          <span class="chip fun">마무리</span>
+          <span class="item-title">단체 사진 & 소감 나누기</span>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-time">14:00</span>
+        <div class="item-body">
+          <span class="chip move">이동</span>
+          <span class="item-title">퇴소 및 귀가</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <div class="sec-head">
+      <p class="sec-label">CHECKLIST</p>
+      <h2 class="sec-title">준비물</h2>
+      <p class="sec-desc">체크박스로 미리 챙겼는지 확인해보세요.</p>
+    </div>
+    <div class="checklist">
+      <label><input type="checkbox"> 신분증</label>
+      <label><input type="checkbox"> 세면도구 & 수건</label>
+      <label><input type="checkbox"> 여벌 옷</label>
+      <label><input type="checkbox"> 실내화 / 슬리퍼</label>
+      <label><input type="checkbox"> 우산 또는 우비</label>
+      <label><input type="checkbox"> 개인 상비약</label>
+      <label><input type="checkbox"> 필기구 & 노트</label>
+      <label><input type="checkbox"> 보조배터리</label>
+      <label><input type="checkbox"> 장기자랑 준비물</label>
+      <label><input type="checkbox"> 회비 5만원</label>
+    </div>
+  </section>
+
+  <section id="info">
+    <div class="sec-head">
+      <p class="sec-label">LOCATION</p>
+      <h2 class="sec-title">장소 · 집합 안내</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>집합 장소 · 시간</h3>
+        <p>경성대학교 정문<br>9월 19일 오전 9시</p>
+      </div>
+      <div class="info-card">
+        <h3>MT 장소</h3>
+        <p>바다세상펜션<br>경상남도 거제시 일운면 옥림길 72</p>
+      </div>
+      <div class="info-card">
+        <h3>이동 수단</h3>
+        <p>4인승 렌트카 1대 이용 (운전자: 권우형)</p>
+      </div>
+      <div class="info-card">
+        <h3>문의</h3>
+        <p>총무 이유정 010-1234-5678</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="notice">
+    <div class="sec-head">
+      <p class="sec-label">NOTICE</p>
+      <h2 class="sec-title">유의사항</h2>
+    </div>
+    <div class="notice">
+      <ul>
+        <li>참가비 1인당 5만원은 9월 15일까지 국민은행 123456-01-789012 (예금주 이유정)로 입금해주세요.</li>
+        <li>음주는 20시 ~ 23시 사이, 숙소 내에서만 가능하며 안전 수칙을 지켜주세요.</li>
+        <li>숙소 내 시설 파손 시 참가자 전원이 함께 책임집니다.</li>
+        <li>불참 시 최소 3일 전까지 총무에게 연락 바랍니다.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  K-MOVE 동아리 MT · 문의 010-1234-5678 (총무 이유정)
+</footer>
+
+</body>
+</html>

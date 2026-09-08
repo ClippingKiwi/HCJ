@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韓国 3泊4日 おすすめ旅行モデルコース</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #d90429;
+            --primary-dark: #ef233c;
+            --secondary-color: #2b2d42;
+            --accent-color: #ffb703;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2b2d42;
+            --text-sub: #6c757d;
+            --border-color: #edf2f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1d3557, #457b9d);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: -25px auto 0;
+            padding: 0 15px;
+        }
+
+        /* 📱 QR 코드 섹션 */
+        .qr-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .qr-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .qr-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 5px;
+            background: #ffffff;
+        }
+
+        .qr-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-top: 8px;
+        }
+
+        .hotel-section {
+            background: #eef6f7;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 1px solid #caf0f8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .hotel-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0077b6;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hotel-box {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #e0f2fe;
+        }
+
+        .hotel-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .hotel-box h4 {
+            font-size: 1.05rem;
+            color: var(--secondary-color);
+            margin-bottom: 4px;
+        }
+
+        .hotel-box p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+
+        .hotel-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hotel-tag {
+            background: #f0f3f6;
+            color: #334155;
+            font-size: 0.85rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 22px;
+        }
+
+        .day-badge {
+            background-color: #e63946;
+            color: white;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            margin-right: 14px;
+        }
+
+        .day-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .schedule-list {
+            list-style: none;
+        }
+
+        .schedule-item {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 22px;
+        }
+
+        .schedule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .schedule-item::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 7px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #457b9d;
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
+        }
+
+        .schedule-item::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 22px;
+            width: 2px;
+            height: calc(100% - 2px);
+            background-color: #e2e8f0;
+        }
+
+        .schedule-item:last-child::after {
+            display: none;
+        }
+
+        .time-tag {
+            font-weight: 700;
+            color: #457b9d;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .spot-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .spot-desc {
+            font-size: 0.93rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.82rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .tag-sight {
+            background-color: #e7f5ff;
+            color: #1c7ed6;
+            border: 1px solid #d0ebff;
+        }
+
+        .tag-food {
+            background-color: #fff4e6;
+            color: #d9480f;
+            border: 1px solid #ffe8cc;
+        }
+
+        .tips-card {
+            background-color: #fff9db;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .tips-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            color: #e67700;
+        }
+
+        .tip-item {
+            margin-bottom: 12px;
+            font-size: 0.93rem;
+        }
+
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-item strong {
+            color: #d9480f;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 35px 15px; }
+            header h1 { font-size: 1.5rem; }
+            .day-card { padding: 20px 16px; }
+            .day-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .day-badge { margin-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="app-title">🇰🇷 韓国 3泊4日 おすすめ旅行モデルコース</h1>
+        <p id="app-subtitle">日本人旅行者向け！見どころ・グルメ・おすすめホテル決定版</p>
+    </header>
+
+    <div class="container">
+        <!-- 📱 구글 드라이브 주소를 반영한 QR 코드 섹션 -->
+        <div class="qr-section">
+            <div class="qr-title">📱 スマホで簡単シェア / モバイル表示</div>
+            <!-- 아래 src 주소의 YOUR_FILE_ID 부분을 구글 드라이브 파일 ID로 바꿔주세요 -->
+            <img class="qr-image" src="https://lh3.googleusercontent.com/d/1nyJVdbykjjGaI1njRa1AnC_t3g3zMoUZ" alt="QR Code" />
+            <div class="qr-desc">カメラで読み取るとスマートフォンでプランを確認できます</div>
+        </div>
+
+        <div id="content">
+            <div class="loading">プランを読み込み中... ✈️</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof google !== 'undefined' && google.script && google.script.run) {
+                google.script.run
+                    .withSuccessHandler(renderData)
+                    .withFailureHandler(handleError)
+                    .getTripData();
+            }
+        });
+
+        function renderData(data) {
+            document.getElementById('app-title').innerText = data.title;
+            document.getElementById('app-subtitle').innerText = data.subtitle;
+
+            const container = document.getElementById('content');
+            container.innerHTML = '';
+
+            // 1. 호텔 추천 섹션
+            if (data.hotels && data.hotels.length > 0) {
+                const hotelSection = document.createElement('div');
+                hotelSection.className = 'hotel-section';
+
+                let hotelBoxesHtml = data.hotels.map(h => {
+                    let recsHtml = h.recommends.map(rec => `<span class="hotel-tag">🏨 ${rec}</span>`).join('');
+                    return `
+                        <div class="hotel-box">
+                            <h4>${h.area}</h4>
+                            <p>${h.desc}</p>
+                            <div class="hotel-list">${recsHtml}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                hotelSection.innerHTML = `
+                    <div class="hotel-title">🏨 おすすめ宿泊エリア＆ホテル</div>
+                    ${hotelBoxesHtml}
+                `;
+                container.appendChild(hotelSection);
+            }
+
+            // 2. 일정 렌더링
+            data.days.forEach(day => {
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+
+                let schedulesHtml = day.schedules.map(sched => {
+                    let tagsHtml = sched.tags.map(tag => 
+                        `<span class="tag tag-${tag.type}">${tag.text}</span>`
+                    ).join('');
+
+                    return `
+                        <li class="schedule-item">
+                            <span class="time-tag">${sched.time}</span>
+                            <div class="spot-name">${sched.spot}</div>
+                            <div class="spot-desc">${sched.desc}</div>
+                            ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ''}
+                        </li>
+                    `;
+                }).join('');
+
+                dayCard.innerHTML = `
+                    <div class="day-header">
+                        <span class="day-badge">${day.day}</span>
+                        <span class="day-title">${day.title}</span>
+                    </div>
+                    <ul class="schedule-list">
+                        ${schedulesHtml}
+                    </ul>
+                `;
+                container.appendChild(dayCard);
+            });
+
+            // 3. 여행 팁 렌더링
+            if (data.tips && data.tips.length > 0) {
+                const tipsCard = document.createElement('div');
+                tipsCard.className = 'tips-card';
+
+                let tipsHtml = data.tips.map(tip => `
+                    <div class="tip-item">
+                        <strong>${tip.title}:</strong> ${tip.desc}
+                    </div>
+                `).join('');
+
+                tipsCard.innerHTML = `
+                    <div class="tips-title">💡 韓国旅行のワンポイントアドバイス</div>
+                    ${tipsHtml}
+                `;
+                container.appendChild(tipsCard);
+            }
+        }
+
+        function handleError(error) {
+            console.error('Error loading data:', error);
+            document.getElementById('content').innerHTML = `
+                <div class="loading" style="color: #e63946;">
+                    プランの読み込みに失敗しました。再読み込みしてください。
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

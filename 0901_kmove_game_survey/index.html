@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html class="dark" lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>GamePulse - 게임 선호도 조사</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary": "#1000a9",
+            "on-secondary-container": "#b0b2ff",
+            "on-primary": "#231691",
+            "surface-container-lowest": "#060e20",
+            "outline": "#918f9e",
+            "outline-variant": "#464553",
+            "primary": "#c3c0ff",
+            "primary-container": "#3730a3",
+            "on-tertiary-container": "#3bb9fe",
+            "error": "#ffb4ab",
+            "tertiary": "#89ceff",
+            "surface": "#0b1326",
+            "on-primary-fixed": "#0f0069",
+            "on-tertiary": "#00344d",
+            "error-container": "#93000a",
+            "surface-container-high": "#222a3d",
+            "on-background": "#dae2fd",
+            "tertiary-fixed": "#c9e6ff",
+            "inverse-surface": "#dae2fd",
+            "on-tertiary-fixed-variant": "#004c6e",
+            "tertiary-container": "#004768",
+            "surface-container": "#171f33",
+            "on-secondary-fixed": "#07006c",
+            "surface-container-highest": "#2d3449",
+            "surface-dim": "#0b1326",
+            "on-secondary-fixed-variant": "#2f2ebe",
+            "primary-fixed-dim": "#c3c0ff",
+            "surface-variant": "#2d3449",
+            "on-error": "#690005",
+            "surface-container-low": "#131b2e",
+            "inverse-primary": "#544fc0",
+            "on-tertiary-fixed": "#001e2f",
+            "primary-fixed": "#e2dfff",
+            "on-primary-container": "#a9a7ff",
+            "background": "#0b1326",
+            "on-primary-fixed-variant": "#3b35a7",
+            "surface-bright": "#31394d",
+            "on-surface": "#dae2fd",
+            "on-surface-variant": "#c8c4d5",
+            "tertiary-fixed-dim": "#89ceff",
+            "secondary-container": "#3131c0",
+            "secondary-fixed": "#e1e0ff",
+            "secondary": "#c0c1ff",
+            "on-error-container": "#ffdad6",
+            "inverse-on-surface": "#283044",
+            "surface-tint": "#c3c0ff",
+            "secondary-fixed-dim": "#c0c1ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "margin-mobile": "20px",
+            "margin-desktop": "40px",
+            "section-gap": "80px",
+            "container-max": "1200px",
+            "gutter": "24px",
+            "base": "8px"
+          },
+          fontFamily: {
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "label-sm": ["Hanken Grotesk", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-lg-mobile": ["Sora", "sans-serif"],
+            "label-md": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Sora", "sans-serif"],
+            "headline-lg": ["Sora", "sans-serif"],
+            "display-lg": ["Sora", "sans-serif"]
+          },
+          fontSize: {
+            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+            "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+            "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080b14;
+      color: #dae2fd;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* 네온 게이밍 배경 효과 */
+    .neon-bg-grid {
+      background-image: linear-gradient(to right, rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .neon-blob {
+      filter: blur(90px);
+      opacity: 0.45;
+      animation: float-slow 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes float-slow {
+      0% { transform: translate(0px, 0px) scale(1); }
+      100% { transform: translate(30px, -40px) scale(1.1); }
+    }
+
+    /* 네온 카드 및 테두리 */
+    .neon-card {
+      background: rgba(19, 21, 41, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 30px rgba(79, 70, 229, 0.2), inset 0 0 15px rgba(99, 102, 241, 0.1);
+    }
+
+    /* 나이 및 기타 입력 필드 (글자색 검정 지정) */
+    .input-field-light {
+      background-color: #ffffff !important;
+      color: #0f172a !important; /* 검은색 텍스트 */
+      font-weight: 600;
+      border: 1px solid #4f46e5;
+      transition: all 0.2s ease;
+    }
+    .input-field-light:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    .primary-btn, .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #9333ea);
+      box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+      transition: all 0.3s ease;
+    }
+    .primary-btn:hover, .btn-primary:hover {
+      filter: brightness(1.2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(147, 51, 234, 0.7);
+    }
+
+    .btn-ghost {
+      border: 1px solid #6366f1;
+      background-color: rgba(99, 102, 241, 0.1);
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover {
+      border-color: #a855f7;
+      background-color: rgba(168, 85, 247, 0.2);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    }
+
+    .checkmark-glow {
+      animation: pulse-glow 2s infinite alternate;
+    }
+    @keyframes pulse-glow {
+      0% { text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
+      100% { text-shadow: 0 0 25px rgba(168, 85, 247, 1), 0 0 50px rgba(99, 102, 241, 0.8); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md antialiased neon-bg-grid">
+
+  <!-- 네온 빛 배경 요소들 -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600 rounded-full neon-blob pointer-events-none"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-fuchsia-600 rounded-full neon-blob pointer-events-none" style="animation-delay: -4s;"></div>
+  <div class="fixed top-[40%] right-[20%] w-[300px] h-[300px] bg-cyan-500 rounded-full neon-blob pointer-events-none" style="animation-delay: -2s;"></div>
+
+  <!-- 설문 조사 화면 -->
+  <main id="surveySection" class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative z-10">
+    <div class="w-full max-w-lg rounded-2xl p-[40px] neon-card">
+      <div class="text-center mb-8">
+        <span class="material-symbols-outlined text-cyan-400 text-6xl mb-2 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">stadia_controller</span>
+        <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white font-bold tracking-wide">게임 선호도 조사</h1>
+        <p class="font-body-md text-body-md text-indigo-200/70 mt-2">귀하의 게임 취향을 분석하기 위한 설문입니다.</p>
+      </div>
+
+      <form class="space-y-6" id="surveyForm">
+        <!-- 나이 입력 -->
+        <div class="space-y-2">
+          <label class="block font-label-md text-label-md text-cyan-300 drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]" for="age">나이</label>
+          <input class="input-field-light w-full rounded-lg px-4 py-3 font-body-md text-slate-900 placeholder-slate-400" id="age" name="age" placeholder="예: 25" required type="number">
+        </div>
+
+        <!-- 성별 선택 -->
+        <div class="space-y-2">
+          <label class="block font-label-md text-label-md text-cyan-300 drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">성별</label>
+          <div class="grid grid-cols-2 gap-4">
+            <label class="cursor-pointer">
+              <input class="segment-input sr-only" name="gender" required type="radio" value="male">
+              <div class="segment-label border border-indigo-500/40 bg-slate-900/50 rounded-lg px-4 py-3 text-center font-body-md text-body-md text-indigo-100 flex items-center justify-center gap-2 hover:bg-indigo-600/30 hover:border-indigo-400 hover:text-white hover:scale-105 transition-all duration-300">
+                <span class="material-symbols-outlined text-[20px] text-indigo-400">male</span> 남성
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="segment-input sr-only" name="gender" type="radio" value="female">
+              <div class="segment-label border border-indigo-500/40 bg-slate-900/50 rounded-lg px-4 py-3 text-center font-body-md text-body-md text-indigo-100 flex items-center justify-center gap-2 hover:bg-pink-600/30 hover:border-pink-400 hover:text-white hover:scale-105 transition-all duration-300">
+                <span class="material-symbols-outlined text-[20px] text-pink-400">female</span> 여성
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 게임 선택 영역 -->
+        <div class="space-y-2">
+          <label class="block font-label-md text-label-md text-cyan-300 drop-shadow-[0_0_5px_rgba(34,211,238,0.5)]">선호하는 게임</label>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="game_card_group">
+            <!-- 마인크래프트 (머티리얼 블록 아이콘 적용) -->
+            <label class="cursor-pointer">
+              <input type="radio" name="game_select" value="minecraft" class="sr-only game-radio" required>
+              <div class="game-card border border-indigo-500/40 bg-slate-900/50 rounded-lg p-3 flex items-center gap-3 hover:bg-cyan-900/30 hover:border-cyan-400 transition-all">
+                <span class="material-symbols-outlined text-green-400">grid_view</span>
+                <span class="font-body-md text-indigo-100">마인크래프트</span>
+              </div>
+            </label>
+
+            <!-- 리그오브레전드 -->
+            <label class="cursor-pointer">
+              <input type="radio" name="game_select" value="lol" class="sr-only game-radio">
+              <div class="game-card border border-indigo-500/40 bg-slate-900/50 rounded-lg p-3 flex items-center gap-3 hover:bg-cyan-900/30 hover:border-cyan-400 transition-all">
+                <span class="material-symbols-outlined text-amber-400">swords</span>
+                <span class="font-body-md text-indigo-100">리그오브레전드</span>
+              </div>
+            </label>
+
+            <!-- 배틀그라운드 -->
+            <label class="cursor-pointer">
+              <input type="radio" name="game_select" value="pubg" class="sr-only game-radio">
+              <div class="game-card border border-indigo-500/40 bg-slate-900/50 rounded-lg p-3 flex items-center gap-3 hover:bg-cyan-900/30 hover:border-cyan-400 transition-all">
+                <span class="material-symbols-outlined text-red-400">target</span>
+                <span class="font-body-md text-indigo-100">배틀그라운드</span>
+              </div>
+            </label>
+
+            <!-- 피파 -->
+            <label class="cursor-pointer">
+              <input type="radio" name="game_select" value="fifa" class="sr-only game-radio">
+              <div class="game-card border border-indigo-500/40 bg-slate-900/50 rounded-lg p-3 flex items-center gap-3 hover:bg-cyan-900/30 hover:border-cyan-400 transition-all">
+                <span class="material-symbols-outlined text-emerald-400">sports_soccer</span>
+                <span class="font-body-md text-indigo-100">피파</span>
+              </div>
+            </label>
+
+            <!-- 기타 -->
+            <label class="cursor-pointer sm:col-span-2">
+              <input type="radio" name="game_select" value="other" class="sr-only game-radio">
+              <div class="game-card border border-indigo-500/40 bg-slate-900/50 rounded-lg p-3 flex items-center gap-3 hover:bg-cyan-900/30 hover:border-cyan-400 transition-all">
+                <span class="material-symbols-outlined text-fuchsia-400">more_horiz</span>
+                <span class="font-body-md text-indigo-100">그외</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- 기타 입력 창 -->
+        <div class="space-y-2 hidden opacity-0 transition-opacity duration-300" id="other_game_container">
+          <label class="block font-label-md text-label-md text-fuchsia-300 drop-shadow-[0_0_5px_rgba(217,70,239,0.5)]" for="other_game">기타 게임명</label>
+          <input class="input-field-light w-full rounded-lg px-4 py-3 font-body-md text-slate-900 placeholder-slate-400" id="other_game" name="other_game" placeholder="선호하는 게임명을 직접 입력해 주세요" type="text">
+        </div>
+
+        <!-- 제출 버튼 -->
+        <div class="pt-4">
+          <button id="submitBtn" class="primary-btn w-full rounded-full py-4 font-label-md text-label-md text-white font-bold tracking-wide flex justify-center items-center gap-2" type="submit">
+            제출하기 <span class="material-symbols-outlined text-[20px]">send</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- 완료 화면 -->
+  <div id="completeSection" class="hidden min-h-screen flex-col items-center justify-center p-margin-mobile md:p-margin-desktop relative z-10">
+    <div class="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-indigo-500 z-50"></div>
+    <main class="w-full max-w-2xl mx-auto flex-grow flex items-center justify-center">
+      <div class="w-full rounded-2xl p-[40px] flex flex-col items-center text-center neon-card">
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="mb-8 p-4 rounded-full bg-indigo-500/20 border border-indigo-400/40 shadow-[0_0_20px_rgba(99,102,241,0.3)]">
+            <span class="material-symbols-outlined checkmark-glow text-fuchsia-400" style="font-size: 80px; font-variation-settings: 'FILL' 0, 'wght' 300;">
+              check_circle
+            </span>
+          </div>
+          <h1 class="font-headline-md text-headline-md text-white font-bold mb-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+            설문에 참여해주셔서 감사합니다
+          </h1>
+          <p class="font-body-md text-body-md text-indigo-200/80 mb-10 max-w-md">
+            소중한 의견이 성공적으로 제출되었습니다. 여러분의 피드백은 더 나은 서비스를 만드는 데 큰 도움이 됩니다.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button id="resetBtn" class="btn-ghost font-label-md text-label-md text-cyan-300 py-3 px-8 rounded-lg flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined" style="font-size: 20px;">refresh</span>
+              다시하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const otherGameContainer = document.getElementById('other_game_container');
+      const otherGameInput = document.getElementById('other_game');
+      const surveyForm = document.getElementById('surveyForm');
+      const surveySection = document.getElementById('surveySection');
+      const completeSection = document.getElementById('completeSection');
+      const submitBtn = document.getElementById('submitBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      
+      const genderInputs = document.querySelectorAll('input[name="gender"]');
+      const gameRadios = document.querySelectorAll('input[name="game_select"]');
+
+      // 성별 선택 스타일
+      genderInputs.forEach(input => {
+        input.addEventListener('change', () => {
+          genderInputs.forEach(i => {
+            const label = i.nextElementSibling;
+            label.classList.remove('bg-indigo-600', 'bg-pink-600', 'border-indigo-400', 'border-pink-400', 'text-white', 'shadow-[0_0_15px_rgba(99,102,241,0.6)]', 'shadow-[0_0_15px_rgba(236,72,153,0.6)]');
+            label.classList.add('bg-slate-900/50', 'border-indigo-500/40', 'text-indigo-100');
+          });
+
+          if (input.checked) {
+            const activeLabel = input.nextElementSibling;
+            activeLabel.classList.remove('bg-slate-900/50', 'border-indigo-500/40', 'text-indigo-100');
+            activeLabel.classList.add('text-white');
+            
+            if (input.value === 'male') {
+              activeLabel.classList.add('bg-indigo-600', 'border-indigo-400', 'shadow-[0_0_15px_rgba(99,102,241,0.6)]');
+            } else if (input.value === 'female') {
+              activeLabel.classList.add('bg-pink-600', 'border-pink-400', 'shadow-[0_0_15px_rgba(236,72,153,0.6)]');
+            }
+          }
+        });
+      });
+
+      // 게임 선택 스타일 & 기타 입력창 동적 제어
+      gameRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          gameRadios.forEach(r => {
+            const card = r.nextElementSibling;
+            card.classList.remove('bg-cyan-900/50', 'border-cyan-400', 'shadow-[0_0_15px_rgba(34,211,238,0.5)]');
+            card.classList.add('bg-slate-900/50', 'border-indigo-500/40');
+          });
+
+          if (radio.checked) {
+            const activeCard = radio.nextElementSibling;
+            activeCard.classList.remove('bg-slate-900/50', 'border-indigo-500/40');
+            activeCard.classList.add('bg-cyan-900/50', 'border-cyan-400', 'shadow-[0_0_15px_rgba(34,211,238,0.5)]');
+          }
+
+          if (e.target.value === 'other') {
+            otherGameContainer.classList.remove('hidden');
+            setTimeout(() => {
+              otherGameContainer.classList.remove('opacity-0');
+              otherGameContainer.classList.add('opacity-100');
+            }, 10);
+            otherGameInput.setAttribute('required', 'true');
+          } else {
+            otherGameContainer.classList.remove('opacity-100');
+            otherGameContainer.classList.add('opacity-0');
+            setTimeout(() => {
+              otherGameContainer.classList.add('hidden');
+            }, 300);
+            otherGameInput.removeAttribute('required');
+            otherGameInput.value = '';
+          }
+        });
+      });
+
+      // 폼 제출 (Google Apps Script 연동)
+      surveyForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `제출 중... <span class="material-symbols-outlined text-[20px] animate-spin">sync</span>`;
+
+        const selectedGender = document.querySelector('input[name="gender"]:checked');
+        const selectedGame = document.querySelector('input[name="game_select"]:checked');
+
+        const formData = {
+          age: document.getElementById('age').value,
+          gender: selectedGender ? selectedGender.value : '',
+          game_select: selectedGame ? selectedGame.value : '',
+          other_game: otherGameInput.value
+        };
+
+        google.script.run
+          .withSuccessHandler((response) => {
+            if (response.success) {
+              surveySection.classList.add('hidden');
+              completeSection.classList.remove('hidden');
+              completeSection.classList.add('flex');
+            } else {
+              alert('저장 중 오류가 발생했습니다: ' + response.error);
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = `제출하기 <span class="material-symbols-outlined text-[20px]">send</span>`;
+            }
+          })
+          .withFailureHandler((err) => {
+            alert('서버통신 오류: ' + err.message);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `제출하기 <span class="material-symbols-outlined text-[20px]">send</span>`;
+          })
+          .saveSurveyData(formData);
+      });
+
+      // 다시하기 버튼
+      resetBtn.addEventListener('click', () => {
+        surveyForm.reset();
+        genderInputs.forEach(i => {
+          const label = i.nextElementSibling;
+          label.classList.remove('bg-indigo-600', 'bg-pink-600', 'border-indigo-400', 'border-pink-400', 'text-white', 'shadow-[0_0_15px_rgba(99,102,241,0.6)]', 'shadow-[0_0_15px_rgba(236,72,153,0.6)]');
+          label.classList.add('bg-slate-900/50', 'border-indigo-500/40', 'text-indigo-100');
+        });
+        gameRadios.forEach(r => {
+          const card = r.nextElementSibling;
+          card.classList.remove('bg-cyan-900/50', 'border-cyan-400', 'shadow-[0_0_15px_rgba(34,211,238,0.5)]');
+          card.classList.add('bg-slate-900/50', 'border-indigo-500/40');
+        });
+        otherGameContainer.classList.add('hidden', 'opacity-0');
+        otherGameInput.removeAttribute('required');
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `제출하기 <span class="material-symbols-outlined text-[20px]">send</span>`;
+
+        completeSection.classList.remove('flex');
+        completeSection.classList.add('hidden');
+        surveySection.classList.remove('hidden');
+      });
+    });
+  </script>
+</body>
+</html>

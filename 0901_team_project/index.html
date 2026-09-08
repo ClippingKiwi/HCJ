@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<base target="_top">
+<title>자취생활 실태 영수증</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#F6F4EC;
+    --table:#E4E1D6;
+    --ink:#2A2A26;
+    --ink-soft:#8A867A;
+    --line:#C9C4B3;
+    --alert:#D64545;
+    --marker:#FFC93C;
+    --register:#1D1D1B;
+    --led:#FF3B3B;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:
+      radial-gradient(ellipse at top, #EDEAE0 0%, var(--table) 70%);
+    min-height:100vh;
+    font-family:'Noto Sans KR', sans-serif;
+    color:var(--ink);
+    padding-bottom:60px;
+  }
+  .mono{ font-family:'Space Mono', monospace; }
+
+  /* ---------------- Register / progress bar ---------------- */
+  .register{
+    position:sticky; top:0; z-index:50;
+    background:var(--register);
+    padding:12px 16px;
+    display:flex; align-items:center; gap:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.18);
+  }
+  .register-inner{
+    max-width:380px; margin:0 auto;
+    display:flex; align-items:center; gap:12px;
+    width:100%;
+  }
+  .logo-chip{
+    flex:none;
+    width:34px; height:34px;
+    background:var(--alert);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:16px;
+  }
+  .barcode-track{
+    flex:1;
+    display:flex; gap:3px; align-items:stretch;
+    height:26px;
+  }
+  .bar{
+    flex:1;
+    border:1.5px solid #55534B;
+    border-radius:2px;
+    background:transparent;
+    transition:background .25s ease, transform .2s ease, border-color .25s ease;
+  }
+  .bar.on{
+    background:#fff;
+    border-color:#fff;
+    animation:scanPulse .3s ease;
+  }
+  @keyframes scanPulse{
+    0%{ transform:scaleY(.6); }
+    60%{ transform:scaleY(1.12); }
+    100%{ transform:scaleY(1); }
+  }
+  .led{
+    flex:none;
+    background:#000;
+    border-radius:4px;
+    padding:5px 9px;
+    color:var(--led);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-shadow:0 0 6px rgba(255,59,59,.8);
+    border:1px solid #333;
+  }
+
+  /* ---------------- Receipt ---------------- */
+  main{ max-width:380px; margin:26px auto 0; padding:0 14px; }
+
+  .receipt-shadow{
+    filter:drop-shadow(0 14px 26px rgba(0,0,0,.22));
+  }
+  .receipt{
+    background:var(--paper);
+    padding:34px 24px 40px;
+    clip-path:polygon(
+      0% 8px,5% 0,10% 8px,15% 0,20% 8px,25% 0,30% 8px,35% 0,40% 8px,45% 0,50% 8px,55% 0,60% 8px,65% 0,70% 8px,75% 0,80% 8px,85% 0,90% 8px,95% 0,100% 8px,
+      100% calc(100% - 8px),95% 100%,90% calc(100% - 8px),85% 100%,80% calc(100% - 8px),75% 100%,70% calc(100% - 8px),65% 100%,60% calc(100% - 8px),55% 100%,50% calc(100% - 8px),45% 100%,40% calc(100% - 8px),35% 100%,30% calc(100% - 8px),25% 100%,20% calc(100% - 8px),15% 100%,10% calc(100% - 8px),5% 100%,0% calc(100% - 8px)
+    );
+    transform:rotate(-0.4deg);
+  }
+
+  .store-head{ text-align:center; margin-bottom:6px; }
+  .store-head h1{
+    font-size:20px; margin:0; letter-spacing:.02em; font-weight:900;
+  }
+  .store-head .addr{
+    font-size:11px; color:var(--ink-soft); margin-top:4px;
+  }
+  .meta-row{
+    display:flex; justify-content:space-between;
+    font-size:11px; color:var(--ink-soft);
+    margin-top:14px;
+    font-family:'Space Mono', monospace;
+  }
+
+  .qr-deco{
+    display:flex; justify-content:center;
+    margin:18px 0 6px;
+  }
+  .qr-deco img{
+    width:84px; height:84px;
+    image-rendering:pixelated;
+    border:6px solid #fff;
+    box-shadow:0 0 0 1.5px var(--ink);
+  }
+  .barcode-num{
+    text-align:center; font-size:10px; letter-spacing:.3em;
+    color:var(--ink-soft); font-family:'Space Mono', monospace;
+    margin-bottom:18px;
+  }
+
+  .dashed{ border-top:1.5px dashed var(--line); margin:18px 0; }
+
+  .headline{
+    text-align:center; margin-bottom:6px;
+  }
+  .headline h2{
+    font-size:16px; font-weight:700; margin:0; line-height:1.5;
+  }
+  .headline p{
+    font-size:12px; color:var(--ink-soft); margin-top:6px; line-height:1.6;
+  }
+
+  /* ---------------- Question item ---------------- */
+  .item{ margin-top:26px; }
+  .item-head{
+    display:flex; align-items:baseline; gap:8px; margin-bottom:12px;
+  }
+  .item-no{
+    font-family:'Space Mono', monospace; font-size:12px; color:var(--ink-soft);
+  }
+  .item-req{
+    font-size:10px; color:#fff; background:var(--alert);
+    padding:1px 6px; border-radius:2px; font-weight:700;
+  }
+  .item-q{
+    font-size:14px; font-weight:700; line-height:1.5; flex:1;
+  }
+
+  .opt-list{ display:flex; flex-direction:column; }
+  .opt-line{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 2px;
+    border-bottom:1px dotted var(--line);
+    cursor:pointer;
+    font-size:13.5px;
+  }
+  .opt-line:last-child{ border-bottom:none; }
+  .opt-mark{
+    flex:none;
+    width:16px; height:16px;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:transparent;
+  }
+  .opt-line input:checked + .opt-mark{
+    background:var(--ink); color:var(--paper);
+  }
+  .opt-line input{ display:none; }
+  .opt-text{ flex:1; }
+  .opt-line.checked{ background:linear-gradient(transparent 60%, var(--marker) 60%); }
+
+  /* ---------------- Scale (POS keypad style) ---------------- */
+  .keypad{ display:flex; gap:8px; }
+  .key{
+    flex:1; aspect-ratio:1;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono', monospace; font-weight:700; font-size:15px;
+    cursor:pointer;
+    transition:background .15s, color .15s, transform .1s;
+  }
+  .key input{ display:none; }
+  .key.checked{
+    background:var(--alert); color:#fff; border-color:var(--alert);
+    transform:scale(1.06);
+  }
+  .scale-caption{
+    display:flex; justify-content:space-between;
+    font-size:10.5px; color:var(--ink-soft); margin-top:8px;
+  }
+
+  /* ---------------- Total / submit ---------------- */
+  .total-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:24px; font-family:'Space Mono', monospace;
+  }
+  .total-row .label{ font-size:13px; color:var(--ink-soft); }
+  .total-row .value{ font-size:15px; font-weight:700; }
+
+  .error-box{
+    display:none; margin-top:14px;
+    border:1.5px dashed var(--alert);
+    color:var(--alert);
+    font-size:12.5px;
+    padding:9px 12px;
+    text-align:center;
+  }
+
+  .pay-btn{
+    width:100%; margin-top:22px;
+    background:var(--register); color:#fff;
+    border:none; padding:15px;
+    font-size:15px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    cursor:pointer;
+  }
+  .pay-btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .pay-btn .chip{
+    width:18px; height:13px; border:1.5px solid #FFC93C; border-radius:2px; background:#FFC93C22;
+  }
+
+  .stub-note{
+    text-align:center; font-size:10.5px; color:var(--ink-soft);
+    margin-top:16px; letter-spacing:.04em;
+  }
+
+  /* ---------------- Success ---------------- */
+  #successView{
+    display:none; min-height:100vh; align-items:center; justify-content:center;
+    flex-direction:column; text-align:center; padding:30px;
+  }
+  #successView.show{ display:flex; }
+  .stamp{
+    width:130px; height:130px; margin-bottom:24px;
+    animation:stampIn .5s cubic-bezier(.2,1.5,.4,1) both;
+  }
+  @keyframes stampIn{
+    0%{ transform:scale(1.6) rotate(-10deg); opacity:0; }
+    70%{ transform:scale(.94) rotate(-4deg); opacity:1; }
+    100%{ transform:scale(1) rotate(-6deg); opacity:1; }
+  }
+  #successView h1{ font-size:21px; margin-bottom:10px; }
+  #successView p{ font-size:13px; color:var(--ink-soft); line-height:1.8; max-width:260px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .stamp{ animation:none; }
+    .bar.on{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ REGISTER TOP BAR (progress) ============ -->
+<div class="register">
+  <div class="register-inner">
+    <div class="logo-chip">自</div>
+    <div class="barcode-track" id="barTrack"></div>
+    <div class="led"><span id="ledCount">0</span>/6</div>
+  </div>
+</div>
+
+<!-- ============ FORM VIEW ============ -->
+<div id="formView">
+  <main>
+    <div class="receipt-shadow">
+      <div class="receipt">
+
+        <div class="store-head">
+          <h1>자취생활 편의점</h1>
+          <div class="addr">오늘의 자취 진단 · 전 품목 무료 증정</div>
+        </div>
+        <div class="meta-row">
+          <span id="dateStr">----.--.--</span>
+          <span>NO. 0827</span>
+        </div>
+
+        <div class="qr-deco">
+          <img alt="QR" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiAQMAAABncE31AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABUklEQVRoge2YTRKDMAiFmckBPFKu7pE8gDM04SdBa3fBTR8LbeFz9SY8AhEC8ZexscXe/9X2Q9KePUElUvZuVGF7tJx+NKqgkigRYqaZj/5Rl24H9Q4lmVajCup1ypuSng5Qb1BW68/pCvulCiqFGo68nRQev3wb1DrqEm4ITzVQyyntR20G4qN0QyiuizcqUGnUiMo93cWpwsvhOEAlUjL++CSqtwAxaBUs9C9QOZQKUXgORypTdGRQ66kxddKQZIsXMlCpVJCEzJZVtTo6E6gcikh3PXxtShw7E6gcSqq6b5BJdKD3OzKo5VRY8+jBYNdqJwKVR81wf5jW8BSg1lFh8zDmou30K3CYmUCtp+w9d5xBoZt3gFpOeReatwDvTAzqJcr2y7Z268UnhUBlUL5ss9r3zARqOSVhu32fi262DCqFmo48dbHtM6hcCoH4u/gA4TVRCg4OmeIAAAAASUVORK5CYII="/>
+        </div>
+        <div class="barcode-num">SCAN TO CHECK IN</div>
+
+        <div class="headline">
+          <h2>자취/독립생활 실태 설문</h2>
+          <p>영수증에 도장 찍듯,<br/>한 문항씩 체크해주세요.</p>
+        </div>
+
+        <div class="dashed"></div>
+
+        <form id="applyForm">
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.01</span>
+              <span class="item-q">현재 자취(독립생활) 기간은 얼마나 되나요?</span>
+              <span class="item-req">필수</span>
+            </div>
+            <div class="opt-list" data-name="period">
+              <label class="opt-line"><input name="period" type="radio" value="6개월 미만"/><span class="opt-mark">✓</span><span class="opt-text">6개월 미만</span></label>
+              <label class="opt-line"><input name="period" type="radio" value="6개월~1년"/><span class="opt-mark">✓</span><span class="opt-text">6개월~1년</span></label>
+              <label class="opt-line"><input name="period" type="radio" value="1~3년"/><span class="opt-mark">✓</span><span class="opt-text">1~3년</span></label>
+              <label class="opt-line"><input name="period" type="radio" value="3년 이상"/><span class="opt-mark">✓</span><span class="opt-text">3년 이상</span></label>
+            </div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.02</span>
+              <span class="item-q">현재 거주 형태는 어떻게 되나요?</span>
+              <span class="item-req">필수</span>
+            </div>
+            <div class="opt-list" data-name="residence">
+              <label class="opt-line"><input name="residence" type="radio" value="원룸"/><span class="opt-mark">✓</span><span class="opt-text">원룸</span></label>
+              <label class="opt-line"><input name="residence" type="radio" value="오피스텔"/><span class="opt-mark">✓</span><span class="opt-text">오피스텔</span></label>
+              <label class="opt-line"><input name="residence" type="radio" value="기숙사"/><span class="opt-mark">✓</span><span class="opt-text">기숙사</span></label>
+              <label class="opt-line"><input name="residence" type="radio" value="셰어하우스"/><span class="opt-mark">✓</span><span class="opt-text">셰어하우스</span></label>
+              <label class="opt-line"><input name="residence" type="radio" value="기타"/><span class="opt-mark">✓</span><span class="opt-text">기타</span></label>
+            </div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.03</span>
+              <span class="item-q">월 평균 생활비(주거비 제외)는 어느 정도인가요?</span>
+            </div>
+            <div class="opt-list" data-name="livingCost">
+              <label class="opt-line"><input name="livingCost" type="radio" value="30만원 미만"/><span class="opt-mark">✓</span><span class="opt-text">30만원 미만</span></label>
+              <label class="opt-line"><input name="livingCost" type="radio" value="30~50만원"/><span class="opt-mark">✓</span><span class="opt-text">30~50만원</span></label>
+              <label class="opt-line"><input name="livingCost" type="radio" value="50~80만원"/><span class="opt-mark">✓</span><span class="opt-text">50~80만원</span></label>
+              <label class="opt-line"><input name="livingCost" type="radio" value="80만원 이상"/><span class="opt-mark">✓</span><span class="opt-text">80만원 이상</span></label>
+            </div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.04</span>
+              <span class="item-q">월세·관리비 등 주거비 부담을 어떻게 느끼시나요?</span>
+            </div>
+            <div class="keypad" data-name="burden">
+              <label class="key"><input name="burden" type="radio" value="1"/>1</label>
+              <label class="key"><input name="burden" type="radio" value="2"/>2</label>
+              <label class="key"><input name="burden" type="radio" value="3"/>3</label>
+              <label class="key"><input name="burden" type="radio" value="4"/>4</label>
+              <label class="key"><input name="burden" type="radio" value="5"/>5</label>
+            </div>
+            <div class="scale-caption"><span>매우 부담</span><span>전혀 부담 없음</span></div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.05</span>
+              <span class="item-q">자취 중 가장 어려운 점은 무엇인가요? (복수 선택)</span>
+            </div>
+            <div class="opt-list" data-name="difficulties">
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="요리/식사"/><span class="opt-mark">✓</span><span class="opt-text">요리/식사</span></label>
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="청소·정리"/><span class="opt-mark">✓</span><span class="opt-text">청소·정리</span></label>
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="외로움"/><span class="opt-mark">✓</span><span class="opt-text">외로움</span></label>
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="재정 관리"/><span class="opt-mark">✓</span><span class="opt-text">재정 관리</span></label>
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="안전 문제"/><span class="opt-mark">✓</span><span class="opt-text">안전 문제</span></label>
+              <label class="opt-line"><input name="difficulties" type="checkbox" value="기타"/><span class="opt-mark">✓</span><span class="opt-text">기타</span></label>
+            </div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="item">
+            <div class="item-head">
+              <span class="item-no mono">NO.06</span>
+              <span class="item-q">자취 생활에 대한 전반적인 만족도는 어느 정도인가요?</span>
+            </div>
+            <div class="keypad" data-name="satisfaction">
+              <label class="key"><input name="satisfaction" type="radio" value="1"/>1</label>
+              <label class="key"><input name="satisfaction" type="radio" value="2"/>2</label>
+              <label class="key"><input name="satisfaction" type="radio" value="3"/>3</label>
+              <label class="key"><input name="satisfaction" type="radio" value="4"/>4</label>
+              <label class="key"><input name="satisfaction" type="radio" value="5"/>5</label>
+            </div>
+            <div class="scale-caption"><span>매우 불만족</span><span>매우 만족</span></div>
+          </div>
+
+          <div class="dashed"></div>
+
+          <div class="total-row">
+            <span class="label">TOTAL ITEMS</span>
+            <span class="value"><span id="totalCount">0</span> / 6</span>
+          </div>
+
+          <div class="error-box" id="errorBox"><span id="errorMsg"></span></div>
+
+          <button class="pay-btn" id="submitBtn" type="submit">
+            <span class="chip"></span>
+            <span id="submitBtnText">제출하기</span>
+          </button>
+
+          <div class="stub-note">본 영수증은 교환·환불이 불가합니다 (농담)</div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ============ SUCCESS VIEW ============ -->
+<div id="successView">
+  <svg class="stamp" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter height="140%" id="rough" width="140%" x="-20%" y="-20%">
+        <feTurbulence baseFrequency="0.05" numOctaves="2" result="noise" seed="4" type="fractalNoise"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+    </defs>
+    <rect fill="none" filter="url(#rough)" height="60" rx="4" stroke="#D64545" stroke-width="4" width="88" x="6" y="20"></rect>
+    <text fill="#D64545" font-family="'Space Mono', monospace" font-size="22" font-weight="700" text-anchor="middle" x="50" y="56">PAID</text>
+  </svg>
+  <h1>제출 완료</h1>
+  <p>오늘 교육 받느라 수고하셨습니다.</p>
+</div>
+
+<script>
+  const requiredIds = ['period','residence'];
+  const singleIds = ['period','residence','livingCost','burden','satisfaction'];
+  const multiId = 'difficulties';
+  const allIds = ['period','residence','livingCost','burden','difficulties','satisfaction'];
+
+  const barTrack = document.getElementById('barTrack');
+  allIds.forEach(function(id){
+    const b = document.createElement('div');
+    b.className = 'bar';
+    b.dataset.for = id;
+    barTrack.appendChild(b);
+  });
+
+  const ledCount = document.getElementById('ledCount');
+  const totalCount = document.getElementById('totalCount');
+
+  document.getElementById('dateStr').textContent =
+    new Date().toISOString().slice(0,10).replace(/-/g,'.');
+
+  function getRadioValue(name){
+    const el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+  function getCheckboxValues(name){
+    const els = document.querySelectorAll('input[name="' + name + '"]:checked');
+    return Array.from(els).map(function(e){ return e.value; });
+  }
+
+  function updateProgress(){
+    let filled = 0;
+    allIds.forEach(function(id){
+      const has = id === multiId
+        ? getCheckboxValues(id).length > 0
+        : getRadioValue(id) !== '';
+      const bar = barTrack.querySelector('[data-for="' + id + '"]');
+      bar.classList.toggle('on', has);
+      if (has) filled++;
+    });
+    ledCount.textContent = filled;
+    totalCount.textContent = filled;
+  }
+
+  // opt-line highlight state
+  document.querySelectorAll('.opt-line input').forEach(function(input){
+    input.addEventListener('change', function(){
+      const list = input.closest('.opt-list');
+      if (input.type === 'radio') {
+        list.querySelectorAll('.opt-line').forEach(function(l){ l.classList.remove('checked'); });
+      }
+      input.closest('.opt-line').classList.toggle('checked', input.checked);
+      updateProgress();
+    });
+  });
+
+  // keypad highlight state
+  document.querySelectorAll('.key input').forEach(function(input){
+    input.addEventListener('change', function(){
+      const pad = input.closest('.keypad');
+      pad.querySelectorAll('.key').forEach(function(k){ k.classList.remove('checked'); });
+      input.closest('.key').classList.add('checked');
+      updateProgress();
+    });
+  });
+
+  const form = document.getElementById('applyForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitBtnText = document.getElementById('submitBtnText');
+  const errorBox = document.getElementById('errorBox');
+  const errorMsg = document.getElementById('errorMsg');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorBox.style.display = 'none';
+
+    const data = {
+      period: getRadioValue('period'),
+      residence: getRadioValue('residence'),
+      livingCost: getRadioValue('livingCost'),
+      burden: getRadioValue('burden'),
+      difficulties: getCheckboxValues('difficulties'),
+      satisfaction: getRadioValue('satisfaction')
+    };
+
+    if (!data.period || !data.residence) {
+      showError('1번, 2번 문항(필수)을 선택해주세요.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtnText.textContent = '결제 중...';
+
+    google.script.run
+      .withSuccessHandler(onSuccess)
+      .withFailureHandler(onFailure)
+      .submitForm(data);
+  });
+
+  function onSuccess(res){
+    if (res && res.result === 'success') {
+      document.getElementById('formView').style.display = 'none';
+      document.querySelector('.register').style.display = 'none';
+      document.getElementById('successView').classList.add('show');
+    } else {
+      showError((res && res.message) || '오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  }
+  function onFailure(err){
+    showError(err.message || '오류가 발생했습니다. 다시 시도해주세요.');
+  }
+  function showError(msg){
+    errorMsg.textContent = msg;
+    errorBox.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtnText.textContent = '제출하기';
+  }
+
+  updateProgress();
+</script>
+
+</body>
+</html>

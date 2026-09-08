@@ -1,0 +1,898 @@
+@charset "UTF-8";
+
+/* ==================== ROOT VARIABLES ==================== */
+:root {
+  --bg-color: #080d1a;        /* 깊은 밤하늘 우주 배경색 */
+  --sidebar-bg: #0d162d;      /* 프로필 기둥 불투명 진블루 */
+  --card-bg: rgba(20, 29, 58, 0.15); /* 오른쪽 콘텐츠 투명 유리 */
+  --card-hover: rgba(30, 43, 82, 0.35);
+  --accent-blue: #48cae4;     
+  --accent-glow: #90e0ef; 
+  --accent-gauge: #5c98f9;    
+  --text-main: #f8f9fa;       
+  --text-muted: #adb5bd;      
+  --border-color: rgba(255, 255, 255, 0.12);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 어두운 은하수 그래픽 변수 */
+  --galaxy-gas: radial-gradient(circle at 20% 20%, rgba(114, 9, 183, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(72, 202, 228, 0.2) 0%, transparent 45%),
+                linear-gradient(135deg, rgba(11, 19, 43, 0.9) 0%, rgba(20, 10, 40, 0.8) 50%, rgba(8, 13, 26, 0.95) 100%);
+  --star-color-1: rgba(255, 255, 255, 0.9);
+  --star-color-2: rgba(144, 224, 239, 0.9);
+}
+
+/* ==================== BASE STYLES & OPTIMIZED GALAXY BG ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+
+  /* body 본체는 단색만 유지 (그라데이션은 ::after 레이어가 처리) */
+  background-color: var(--bg-color);
+}
+
+/* [최적화 2] 별빛 효과 레이어를 독립된 GPU 레이어로 분리 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* 마우스 클릭 통과 */
+  z-index: -1;          /* 콘텐츠 뒤로 배치 */
+
+  /* 복잡했던 별빛 radial-gradient는 이 고정 레이어 안에서만 단 1회 렌더링됨 */
+  background-image: 
+    /* 1. 먼지 별빛 */
+    radial-gradient(0.8px 0.8px at 15px 25px, var(--star-color-1), rgba(0,0,0,0)),
+    radial-gradient(0.8px 0.8px at 75px 115px, rgba(255, 255, 255, 0.7), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 130px 65px, var(--star-color-1), rgba(0,0,0,0)),
+    radial-gradient(0.8px 0.8px at 210px 185px, rgba(255, 255, 255, 0.9), rgba(0,0,0,0)),
+
+    /* 2. 기본 별빛 */
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 40px 70px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, var(--star-color-2), rgba(0,0,0,0)),
+
+    /* 3. 네온 별빛 */
+    radial-gradient(2.5px 2.5px at 50px 160px, rgba(255, 255, 255, 1), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 280px 90px, rgba(200, 240, 255, 0.95), rgba(0,0,0,0));
+
+  background-repeat: repeat;
+  background-size: 
+    150px 150px, 220px 220px, 180px 180px, 260px 260px,
+    250px 250px, 350px 350px, 180px 180px, 400px 400px,
+    300px 300px, 450px 450px;
+
+  /* ★ 브라우저에게 GPU Compositor 레이어 형성을 강제 지정 (핵심 최적화) */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ==================== 1. 은하수 오로라 애니메이션 레이어 ==================== */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200vw;
+  height: 200vh;
+  pointer-events: none;
+  z-index: -2; /* 별빛(z-index: -1)보다 뒤에 배치 */
+
+  /* 은하수 성운 가스 배경 적용 */
+  background: var(--galaxy-gas);
+  background-size: 100% 100%;
+
+  /* GPU 가속 + 부드러운 오로라 회전 애니메이션 */
+  will-change: transform;
+}
+
+/* ==================== LIGHT MODE OVERRIDES ==================== */
+body.light-mode {
+  --bg-color: #f0f4f9;
+  --sidebar-bg: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-hover: rgba(255, 255, 255, 0.95);
+  --accent-blue: #0077b6;
+  --accent-glow: #023e8a;
+  --text-main: #1d2d44;
+  --text-muted: #6c757d;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --item-bg: rgba(0, 0, 0, 0.02);
+
+  --galaxy-gas: radial-gradient(circle at 20% 20%, rgba(144, 224, 239, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(203, 178, 254, 0.35) 0%, transparent 50%),
+                linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 50%, #f0f4f9 100%);
+  --star-color-1: rgba(56, 189, 248, 0.4);
+  --star-color-2: rgba(168, 85, 247, 0.4);
+}
+
+/* 라이트 모드 카드 그림자 개선 */
+body.light-mode .card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+body.light-mode .card:hover {
+  box-shadow: 0 15px 35px rgba(0, 77, 182, 0.12);
+}
+body.light-mode .profile-card {
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.03);
+}
+
+/* 라이트 모드 전용 아바타(프로필 액자) 스타일 추가 */
+body.light-mode .avatar {
+  /* 테두리 그라데이션을 밝은 하늘색~파스텔 보라로 변경 */
+  background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), 
+                    linear-gradient(135deg, #00b4d8, var(--sidebar-bg), #9d4edd);
+  
+  /* 그림자를 은은하고 투명도 높은 파스텔 톤으로 변경 */
+  box-shadow: 
+    0 4px 15px rgba(255, 100, 129, 0.3),
+    0 8px 25px rgba(255, 198, 117, 0.25);
+}
+
+/* 마우스 올렸을 때(Hover) 그림자 효과 */
+body.light-mode .avatar:hover {
+  box-shadow: 
+    0 6px 20px rgba(255, 100, 129, 0.5),
+    0 10px 32px rgba(255, 198, 117, 0.4);
+}
+
+/* ==================== LAYOUT CONTAINER ==================== */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* ==================== LEFT OPAQUE COLUMN (SIDEBAR) ==================== */
+.profile-card {
+  width: 320px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  background: var(--sidebar-bg);
+  opacity: 1;
+
+  border: none;
+  border-right: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 60px 28px 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+
+  box-shadow: 10px 0 15px rgba(15, 15, 16, 0.5);
+  z-index: 10;
+
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+/* ==================== AVATAR ENHANCED GLOW ==================== */
+.avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  position: relative;
+  
+  box-shadow: 
+    0 0 15px rgba(72, 202, 228, 0.5),
+    0 0 35px rgba(144, 224, 239, 0.3),
+    0 0 60px rgba(114, 9, 183, 0.5);
+  
+  border: 3px solid transparent;
+  background-image: linear-gradient(var(--sidebar-bg), var(--sidebar-bg)), 
+                    linear-gradient(135deg, #00ffff, var(--sidebar-bg), #7209b7);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 20px rgba(72, 202, 228, 0.8),
+    0 0 45px rgba(144, 224, 239, 0.6),
+    0 0 75px rgba(114, 9, 183, 0.5);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-info h1 {
+  font-size: 2.0rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  letter-spacing: -0.5px;
+}
+
+.profile-info .subtitle {
+  color: var(--accent-blue);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-info .bio {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  word-break: keep-all;
+}
+
+/* ==================== RIGHT CONTENT AREA ==================== */
+.grid-section {
+  flex: 1;
+  padding: 40px 32px 60px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-content: start;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 28px;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  border-color: rgba(72, 202, 228, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-glow);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==================== ABOUT ME LIST ==================== */
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  font-size: 1rem;
+}
+
+.info-item .label {
+  color: var(--text-muted);
+}
+
+.info-item .value {
+  font-weight: 600;
+}
+
+/* ==================== SKILL TAGS ==================== */
+.skills-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-tag {
+  background: rgba(72, 202, 228, 0.12);
+  color: var(--accent-blue);
+  border: 1px solid rgba(72, 202, 228, 0.25);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: var(--accent-blue);
+  color: #080d1a;
+}
+
+/* ==================== OS SKILLS CARD (GAUGE BAR) ==================== */
+.os-skills-card {
+  grid-column: span 2;
+}
+
+.os-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}
+
+.os-gauge-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.os-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.os-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.os-percentage {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-glow);
+}
+
+.gauge-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gauge-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #5e60ce 0%, #e7af6bf1 75%, #f67148 100%);
+  box-shadow: 0 0 8px rgba(72, 202, 228, 0.4); 
+  transition: opacity 0.3s ease;
+}
+
+.os-gauge-item:hover .gauge-bar-fill {
+  box-shadow: 0 0 15px rgba(144, 224, 239, 0.9);
+  opacity: 0.85;
+}
+
+/* ==================== LANGUAGE SKILLS CARD CSS ==================== */
+.lang-skills-card {
+  grid-column: span 2;
+}
+
+.lang-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}
+
+.lang-gauge-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lang-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.lang-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.lang-percentage {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-glow);
+}
+
+.lang-gauge-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: var(--accent-gauge);
+  box-shadow: 0 0 8px rgba(72, 202, 228, 0.4); 
+  transition: opacity 0.3s ease;
+}
+
+.lang-gauge-item:hover .lang-gauge-fill {
+  opacity: 0.85;
+}
+
+/* ==================== EXPERIENCE & CONTACT ==================== */
+.full-width-card, .contact-card {
+  grid-column: span 2;
+}
+
+/* ==================== ADVANCED NEON TIMELINE ==================== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(
+    180deg, 
+    var(--accent-glow) 0%,
+    var(--accent-blue) 15%, 
+    #5e60ce 40%,
+    #805bfa 75%,
+    rgba(114, 9, 183, 0.8) 100%
+  );
+  box-shadow: 0 0 8px rgba(72, 202, 228, 0.6);
+}
+
+/* timeline-item 내의 고정 배경색을 변수로 변경 */
+.timeline-item {
+  position: relative;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: var(--item-bg); /* [수정] rgba(255,255,255,0.02) -> var(--item-bg) */
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.timeline-item:hover {
+  background: rgba(72, 202, 228, 0.06);
+  border-color: rgba(72, 202, 228, 0.3);
+  transform: translateX(6px);
+  box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 22px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  border: 2px solid var(--accent-blue);
+  box-shadow: 
+    0 0 8px var(--accent-blue),
+    0 0 15px rgba(144, 224, 239, 0.6);
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.timeline-item:hover::before {
+  background: var(--accent-glow);
+  border-color: #ffffff;
+  transform: scale(1.5);
+  margin-left: -6px;
+  box-shadow: 
+    0 0 12px var(--accent-glow),
+    0 0 22px var(--accent-blue),
+    0 0 35px rgba(114, 9, 183, 0.8);
+}
+
+.timeline-date {
+  display: block;
+  font-size: 1.2rem;
+  color: var(--accent-glow);
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+.timeline-role {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.timeline-company {
+  font-size: 0.88rem;
+  color: var(--accent-blue);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/* ==================== PROJECT CARD STYLES ==================== */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  background: var(--item-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  transition: var(--transition);
+}
+
+.project-item:hover {
+  background: rgba(72, 202, 228, 0.04);
+  border-color: rgba(72, 202, 228, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.project-media {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* --- 비디오 컨테이너 & 파사드 스타일 (수정 및 추가) --- */
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* 16:9 고정 비율 */
+  background-color: #000;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+/* 파사드 상태 (클릭 전) */
+.youtube-facade {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 썸네일 이미지 */
+.facade-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.youtube-facade:hover .facade-thumb {
+  transform: scale(1.03); /* 마우스 호버 시 살짝 확대 */
+}
+
+/* 재생 버튼 */
+.facade-play-btn {
+  position: relative;
+  z-index: 2;
+  width: 68px;
+  height: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)); /* 재생 버튼에 은은한 그림자 추가 */
+}
+
+.facade-play-btn .play-bg {
+  transition: fill 0.2s ease, fill-opacity 0.2s ease;
+}
+
+/* 호버 시 유튜브 빨간색 버튼으로 전환 */
+.youtube-facade:hover .facade-play-btn .play-bg {
+  fill: #ff0000;
+  fill-opacity: 1;
+}
+
+/* 클릭 후 동적으로 생성되는 iframe 스타일 */
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- 프로젝트 콘텐츠 텍스트 스타일 --- */
+.project-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.project-date {
+  font-size: 1.1rem;
+  color: var(--accent-glow);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.project-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.project-desc {
+  font-size: 1.0rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+
+.project-item.project-reverse {
+  grid-template-columns: 1.2fr 2.0fr; 
+}
+
+.project-item.project-reverse .project-media {
+  order: 2;
+}
+
+.project-item.project-reverse .project-content {
+  order: 1;
+}
+
+/* ==================== CONTACT BUTTONS ==================== */
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: #080d1a;
+}
+
+.btn-primary:hover {
+  background: var(--accent-glow);
+  box-shadow: 0 0 15px rgba(144, 224, 239, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==================== PROFILE CONTACT ==================== */
+.profile-contact {
+  list-style: none;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-contact li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.profile-contact .label {
+  color: var(--text-muted);
+}
+
+.profile-contact .value {
+  color: var(--text-main);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.profile-contact a.value:hover {
+  color: var(--accent-blue);
+}
+
+/* ==================== TOGGLE BUTTON STYLES ==================== */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--item-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  margin-top: 10px;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--card-hover);
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+  color: var(--accent-blue);
+}
+
+.theme-toggle-btn .toggle-icon {
+  font-size: 1.1rem;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile-card {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0 0 24px 24px;
+    padding: 36px 20px 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .grid-section {
+    padding: 24px 16px 40px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .full-width-card, 
+  .contact-card,
+  .os-skills-card,
+  .lang-skills-card {
+    grid-column: span 1;
+    width: 100%;
+  }
+
+  .os-list,
+  .lang-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-item,
+  .project-item.project-reverse {
+    grid-template-columns: 1fr; /* [수정] 모바일에서 1열로 통일 */
+    gap: 16px;
+  }
+
+  .project-item.project-reverse .project-media,
+  .project-item.project-reverse .project-content {
+    order: initial; /* [수정] 모바일 화면에서는 순서를 기본 정렬로 복원 */
+  }
+
+  .media-main, 
+  .media-video {
+    height: 180px;
+  }
+
+  .social-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  p, span, a, h1, h2, h3 {
+    overflow-wrap: break-word;
+    word-break: keep-all;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 28px 16px 20px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .profile-info .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .timeline {
+    padding-left: 20px;
+  }
+
+  .timeline-item {
+    padding: 12px 14px;
+  }
+
+  .timeline-item::before {
+    left: -25px; /* [수정] 모바일 노드 크기에 맞춰 세로선 중앙으로 재조정 */
+    width: 10px;
+    height: 10px;
+  }
+}

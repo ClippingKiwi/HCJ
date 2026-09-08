@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- css 파일 연결 -->
+  <link rel="stylesheet" href="introduce1.css">
+  <title>프로필 | introduce</title>
+  <!-- Google Fonts (Noto Sans KR, Poppins) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- 자바스크립트 파일 연결 -->
+  <script src="toggle.js" defer></script>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 메인 프로필 섹션 -->
+    <header class="profile-card">
+      <div class="avatar-wrapper">
+        <div class="avatar">
+          <img src="img/kimera-profile-image.png" alt="M">
+        </div>
+      </div>
+      <div class="profile-info">
+        <h1>문종우</h1>
+        <div class="subtitle">Advenced Technology</div>
+        <p class="bio">
+          전기공학을 전공하여 회로설계는 물론 여러 소프트웨어를 다룹니다. 
+        </p>
+      </div>
+      <!-- 프로필 카드 내부에 추가할 연락처 정보 -->
+      <ul class="profile-contact">
+        <li>
+          <span class="label">Email</span>
+          <a href="mailto:example@gmail.com" class="value">example@gmail.com</a>
+        </li>
+        <li>
+          <span class="label">Phone</span>
+          <span class="value">010-1234-5678</span>
+        </li>
+        <li>
+          <span class="label">GitHub</span>
+          <a href="https://github.com/ClippingKiwi" class="value" title="깃허브 바로가기">ClippingKiwi</a>
+        </li>
+        <li>
+          <span class="label">LOL</span>
+          <a href="https://op.gg/lol/summoners/kr/모카라떼샷추가-KR1" class="value" title="op.gg 바로가기">모카라떼샷추가</a>
+        </li>
+        <li>
+          <span class="label">Location</span>
+          <a href="https://www.google.com/maps/place/일본+가나가와현+요코하마시" class="value" title="구글 지도 보기">Yokohama, Japan</a>
+        </li>
+      </ul>
+      <!-- 💡 Location 밑에 추가된 테마 토글 버튼 -->
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="테마 전환">
+        <span class="toggle-icon">🌙</span>
+        <span class="toggle-text">밤 테마</span>
+      </button>
+    </header>
+
+    <!-- 세부 정보 그리드 -->
+    <main class="grid-section">
+      <!-- 기본 정보 카드 -->
+      <section class="card">
+        <h2 class="card-title">✦ About Me</h2>
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="label">Experience</span>
+            <span class="value">2+ Years</span>
+          </li>
+          <li class="info-item">
+            <span class="label">Interests</span>
+            <span class="value">Astronomy</span>
+          </li>
+          <li class="info-item">
+            <span class="label">Hobby</span>
+            <span class="value">Game & Anime</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 보유 기술 카드 -->
+      <section class="card">
+        <h2 class="card-title">✦ Tech Stack</h2>
+        <div class="skills-wrapper">
+          <span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">Arduino</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </section>
+
+      <!-- OS SKILLS SECTION -->
+      <section class="card os-skills-card">
+        <h2 class="card-title">✦ OS Skills</h2>
+        <ul class="os-list">
+          <!-- Linux -->
+          <li class="os-gauge-item">
+            <div class="os-info">
+              <span class="os-name">MS Excel</span>
+              <span class="os-percentage">70%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="gauge-bar-fill" style="width: 70%;"></div>
+            </div>
+          </li>
+          <!-- Windows Server -->
+          <li class="os-gauge-item">
+            <div class="os-info">
+              <span class="os-name">Google</span>
+              <span class="os-percentage">85%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="gauge-bar-fill" style="width: 85%;"></div>
+            </div>
+          </li>
+
+          <!-- macOS -->
+          <li class="os-gauge-item">
+            <div class="os-info">
+              <span class="os-name">Presentation</span>
+              <span class="os-percentage">75%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="gauge-bar-fill" style="width: 75%;"></div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ==================== LANGUAGE SKILLS CARD HTML ==================== -->
+      <!-- glass-card 대신 기존 카드 스타일인 card로 변경 -->
+      <section class="card lang-skills-card">
+        <div class="card-header">
+          <i class="fa-solid fa-language card-icon"></i>
+          <h3 class="card-title">✦ Language Skills</h3>
+        </div>
+        
+        <div class="lang-list">
+          <!-- Item 1: Korean -->
+          <div class="lang-gauge-item">
+            <div class="lang-info">
+              <span class="lang-name">Korean (Native)</span>
+              <span class="lang-percentage">100%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="lang-gauge-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- Item 2: English -->
+          <div class="lang-gauge-item">
+            <div class="lang-info">
+              <span class="lang-name">English (Intermediate)</span>
+              <span class="lang-percentage">65%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="lang-gauge-fill" style="width: 65%;"></div>
+            </div>
+          </div>
+
+          <!-- Item 3: Japanese -->
+          <div class="lang-gauge-item">
+            <div class="lang-info">
+              <span class="lang-name">Japanese (Fluent)</span>
+              <span class="lang-percentage">80%</span>
+            </div>
+            <div class="gauge-bar-bg">
+              <div class="lang-gauge-fill" style="width: 80%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card full-width-card">
+        <h2 class="card-title">✦ Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2026.07 - Present</div>
+            <div class="timeline-role">경성대학교 Kmove</div>
+            <div class="timeline-company">연수중</div>
+            <p class="timeline-desc">일본 IT기업 취직을 위한 일본어 학습과 AI프로그래밍을 수강중</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2021.03 - 2026.06</div>
+            <div class="timeline-role">경성대학교 전기공학과</div>
+            <div class="timeline-company">졸업예정</div>
+            <p class="timeline-desc">전기공학을 4년간 전공하여 학사학위 취득 예정</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2022.08 - 2024.08</div>
+            <div class="timeline-role">방위산업체 근무</div>
+            <div class="timeline-company">군복무</div>
+            <p class="timeline-desc">전기・전자 완제품 제조 및 설치・시공</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2021.02</div>
+            <div class="timeline-role">고등학교 졸업</div>
+            <div class="timeline-company">동인고등학교</div>
+            <p class="timeline-desc">2021년이 되어 초, 중, 고 모두 이수하게 되었고 성인이 되었습니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PROJECTS CARD ==================== -->
+      <section class="card full-width-card project-card">
+        <h2 class="card-title">✦ Projects</h2>
+        <div class="project-list">
+    
+          <!-- 프로젝트 1: 단상 모터 제어 -->
+          <article class="project-item">
+            <div class="project-media">
+              <!-- youtube-facade 클래스와 data-video-id 추가 -->
+              <div class="video-container youtube-facade" data-video-id="wzaPUGCBsP8">
+                <img 
+                  src="https://img.youtube.com/vi/wzaPUGCBsP8/hqdefault.jpg" 
+                  alt="단상 모터 제어 시연 영상 썸네일" 
+                  class="facade-thumb"
+                >
+                <button class="facade-play-btn" aria-label="영상 재생">
+                  <!-- 삼각형 그리기 -->
+                  <svg viewBox="0 0 68 48" width="100%" height="100%">
+                    <path class="play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-.13,27.1-1.55c2.93-.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"/>
+                    <path d="M 45,24 27,14 27,34" fill="#fff"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="project-content">
+              <span class="project-date">2026.06</span>
+              <h3 class="project-title">단상 모터 제어</h3>
+              <p class="project-desc">버튼을 눌러 모터를 제어하고 과전류가 흐를시 열동계전기로 인해 차단기가 작동합니다.</p>
+              <div class="skills-wrapper">
+                <span class="skill-tag">#자동화제어</span>
+                <span class="skill-tag">#회로설계</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 프로젝트 2: 롤 매드무비 -->
+          <article class="project-item project-reverse">
+            <div class="project-media">
+              <div class="video-container youtube-facade" data-video-id="PXIPtrKpVmQ">
+                <img 
+                  src="https://img.youtube.com/vi/PXIPtrKpVmQ/hqdefault.jpg" 
+                  alt="프로젝트 시연 영상 썸네일" 
+                  class="facade-thumb"
+                >
+                <button class="facade-play-btn" aria-label="영상 재생">
+                  <!-- 삼각형 그리기 -->
+                  <svg viewBox="0 0 68 48" width="100%" height="100%">
+                    <path class="play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-.13,27.1-1.55c2.93-.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"/>
+                    <path d="M 45,24 27,14 27,34" fill="#fff"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="project-content">
+              <span class="project-date">2026.02</span>
+              <h3 class="project-title">롤 매드무비</h3>
+              <p class="project-desc">저의 피지컬과 집중력을 잘 보여주는 게임 하이라이트 영상입니다.</p>
+            </div>
+          </article>
+
+          <!-- 추천 영상 -->
+          <article class="project-item">
+            <div class="project-media">
+              <div class="video-container youtube-facade" data-video-id="W9OJV4o1AdA">
+                <img 
+                  src="https://img.youtube.com/vi/W9OJV4o1AdA/hqdefault.jpg" 
+                  alt="추천영상" 
+                  class="facade-thumb"
+                >
+                <button class="facade-play-btn" aria-label="영상 재생">
+                  <!-- 삼각형 그리기 -->
+                  <svg viewBox="0 0 68 48" width="100%" height="100%">
+                    <path class="play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-.13,27.1-1.55c2.93-.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"/>
+                    <path d="M 45,24 27,14 27,34" fill="#fff"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="project-content">
+              <span class="project-date">추천 영상</span>
+              <h3 class="project-title">톰의 자장가</h3>
+              <p class="project-desc">Go to sleep~ go to sleep~</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 연락처 및 링크 카드 -->
+      <section class="card contact-card">
+        <h2 class="card-title">✦ Link</h2>
+        <div class="social-links">
+          <a href="mailto:answhddn54@gmail.com" class="btn btn-primary">이메일 보내기</a>
+          <a href="https://github.com" target="_blank" class="btn btn-secondary">GitHub</a>
+          <a href="https://www.leagueoflegends.com/ko-kr/" target="_blank" class="btn btn-secondary">롤 친추걸기</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+</body>
+</html>

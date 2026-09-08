@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOREA JOURNEY | 韓国公式観光・旅行完全ガイド</title>
+  <meta name="description" content="ソウル、釜山、済州島の人気スポットから最新トレンド、K-FOOD、WOWPASS・交通カードなど、日本人旅行者のための韓国観光完全ガイド。">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            koreaRed: {
+              DEFAULT: '#d92d20',
+              hover: '#b42318',
+              light: '#fef3f2'
+            },
+            koreaBlue: {
+              DEFAULT: '#175cd3',
+              hover: '#154fb4',
+              light: '#eff8ff'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-red-600 selection:text-white">
+
+  <!-- Header / Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-red-600 text-white font-bold text-base tracking-wider group-hover:bg-red-700 transition-colors">
+          KR
+        </span>
+        <div class="leading-none">
+          <span class="block text-lg font-black tracking-tight text-slate-900">KOREA JOURNEY</span>
+          <span class="text-[10px] font-bold text-slate-500 tracking-widest uppercase">韓国公式トラベルナビ</span>
+        </div>
+      </a>
+
+      <!-- Desktop GNB -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-bold text-slate-700">
+        <a href="#destinations" class="nav-link hover:text-red-600">人気エリア</a>
+        <a href="#essentials" class="nav-link hover:text-red-600">旅の必須準備</a>
+        <a href="#culture" class="nav-link hover:text-red-600">グルメ＆体験</a>
+        <a href="#faq" class="nav-link hover:text-red-600">よくある質問</a>
+        <a href="#inquiry" class="px-5 py-2.5 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors shadow-sm font-semibold">
+          旅行相談・お問い合わせ
+        </a>
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button type="button" id="hamburgerBtn" aria-label="ナビゲーションメニューを開く" aria-expanded="false" class="lg:hidden p-2.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Dropdown Nav -->
+    <div id="mobileNav" class="hidden lg:hidden bg-white border-b border-slate-200 px-5 pt-3 pb-6 space-y-3 shadow-xl">
+      <a href="#destinations" class="block py-2 text-base font-semibold text-slate-800 hover:text-red-600">人気エリア</a>
+      <a href="#essentials" class="block py-2 text-base font-semibold text-slate-800 hover:text-red-600">旅の必須準備</a>
+      <a href="#culture" class="block py-2 text-base font-semibold text-slate-800 hover:text-red-600">グルメ＆体験</a>
+      <a href="#faq" class="block py-2 text-base font-semibold text-slate-800 hover:text-red-600">よくある質問</a>
+      <a href="#inquiry" class="block w-full text-center py-3 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
+        旅行相談・お問い合わせ
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20">
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[580px] lg:min-h-[640px] flex items-center justify-center overflow-hidden">
+      <!-- Background Image -->
+      <img src="./assets/img/hero_korea.jpg" alt="ソウル景福宮と光化門のパノラマ夜景" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 hero-gradient-overlay"></div>
+
+      <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center text-white space-y-6">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs sm:text-sm font-semibold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+          2026年 最新 韓国観光ガイド＆トレンド情報
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-tight">
+          伝統と最旬トレンドが交差する<br>
+          <span class="text-red-400">心躍る韓国の旅</span>へ
+        </h1>
+
+        <p class="text-base sm:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-normal">
+          ソウル、釜山、済州島の名所から、話題のK-FOOD、WOWPASS活用術まで。日本人旅行者に寄り添う安心の旅情報をお届けします。
+        </p>
+
+        <!-- Quick Filter / Action -->
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+          <a href="#destinations" class="px-7 py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm sm:text-base transition-all shadow-lg shadow-red-900/30">
+            人気エリアを見る
+          </a>
+          <a href="#essentials" class="px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 font-bold text-sm sm:text-base transition-all">
+            入国・準備ガイド
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Features Banner (4 Highlights) -->
+    <section class="bg-white border-b border-slate-200 py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div class="p-3">
+            <span class="block text-xs font-bold text-red-600 uppercase tracking-wider">Flight Time</span>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900">最短2時間〜</span>
+            <p class="text-xs text-slate-500 mt-1">日本各地から直行便多数</p>
+          </div>
+          <div class="p-3">
+            <span class="block text-xs font-bold text-red-600 uppercase tracking-wider">Payment</span>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900">完全キャッシュレス</span>
+            <p class="text-xs text-slate-500 mt-1">WOWPASS・各種カード対応</p>
+          </div>
+          <div class="p-3">
+            <span class="block text-xs font-bold text-red-600 uppercase tracking-wider">Support</span>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900">24時間 日本語対応</span>
+            <p class="text-xs text-slate-500 mt-1">観光通訳案内 1330番</p>
+          </div>
+          <div class="p-3">
+            <span class="block text-xs font-bold text-red-600 uppercase tracking-wider">Visa</span>
+            <span class="text-xl sm:text-2xl font-extrabold text-slate-900">ビザなし渡航可</span>
+            <p class="text-xs text-slate-500 mt-1">90日以内の観光滞在</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Destinations Section -->
+    <section id="destinations" class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <span class="text-xs font-bold tracking-widest text-red-600 uppercase">Popular Destinations</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">注目の人気観光エリア</h2>
+            <p class="mt-2 text-sm sm:text-base text-slate-600">大都市の熱気から美しい大自然まで、旅のスタイルに合わせて選ぶおすすめスポット</p>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="flex flex-wrap gap-2" role="tablist">
+            <button type="button" class="tab-trigger active px-4 py-2 text-xs font-bold rounded-lg border border-slate-300 text-slate-700 bg-white transition-all" data-category="all">すべて</button>
+            <button type="button" class="tab-trigger px-4 py-2 text-xs font-bold rounded-lg border border-slate-300 text-slate-700 bg-white transition-all" data-category="seoul">ソウル</button>
+            <button type="button" class="tab-trigger px-4 py-2 text-xs font-bold rounded-lg border border-slate-300 text-slate-700 bg-white transition-all" data-category="busan">釜山</button>
+            <button type="button" class="tab-trigger px-4 py-2 text-xs font-bold rounded-lg border border-slate-300 text-slate-700 bg-white transition-all" data-category="jeju">済州島</button>
+          </div>
+        </div>
+
+        <!-- Destination Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Card 1: Seoul -->
+          <div class="destination-item travel-card bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col" data-category="seoul">
+            <div class="relative aspect-video overflow-hidden bg-slate-100">
+              <img src="./assets/img/hero_korea.jpg" alt="ソウル景福宮と都心風景" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-bold rounded-md bg-slate-900/80 text-white backdrop-blur-sm">
+                ソウル特別市
+              </span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">歴史とトレンドが共存する大都市</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  景福宮の韓服体験から、聖水洞(ソンスドン)のおしゃれカフェ、明洞や弘大のショッピングまで、初めての韓国旅行にも最適な王道エリアです。
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="guide-badge">景福宮</span>
+                  <span class="guide-badge">聖水洞</span>
+                  <span class="guide-badge">明洞</span>
+                </div>
+                <span class="text-xs font-bold text-red-600">詳細を見る &rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Busan -->
+          <div class="destination-item travel-card bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col" data-category="busan">
+            <div class="relative aspect-video overflow-hidden bg-slate-100">
+              <img src="./assets/img/destination_busan.jpg" alt="釜山海雲台ビーチと広安大橋" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-bold rounded-md bg-slate-900/80 text-white backdrop-blur-sm">
+                釜山広域市
+              </span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">青い海と新鮮な海鮮グルメの港町</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  海雲台の開放的なビーチリゾート、広安里の夜景、チャガルチ市場の新鮮な刺身やデジクッパなど、ソウルとは一味違う魅力に溢れています。
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="guide-badge">海雲台</span>
+                  <span class="guide-badge">広安里</span>
+                  <span class="guide-badge">海鮮グルメ</span>
+                </div>
+                <span class="text-xs font-bold text-red-600">詳細を見る &rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Jeju -->
+          <div class="destination-item travel-card bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col" data-category="jeju">
+            <div class="relative aspect-video overflow-hidden bg-slate-100">
+              <img src="./assets/img/destination_jeju.jpg" alt="済州島城山日出峰と海岸絶景" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-bold rounded-md bg-slate-900/80 text-white backdrop-blur-sm">
+                済州特別自治道
+              </span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">世界自然遺産と癒やしの楽園アイランド</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  城山日出峰や万丈窟などのダイナミックな自然、黒豚焼き、名産のハルラボンみかん、海沿いの絶景オーシャンビューカフェが人気です。
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="guide-badge">世界自然遺産</span>
+                  <span class="guide-badge">黒豚</span>
+                  <span class="guide-badge">リゾート</span>
+                </div>
+                <span class="text-xs font-bold text-red-600">詳細を見る &rarr;</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel Essentials Section -->
+    <section id="essentials" class="py-20 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold tracking-widest text-red-600 uppercase">Travel Essentials</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">初めてでも安心！韓国旅行の必須準備</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600">渡航前に確認しておきたい決済・通信・交通の基本ポイントを分かりやすく解説します。</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <!-- Guide Item 1 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-red-300 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-extrabold flex items-center justify-center text-base mb-5">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">決済・WOWPASSカード</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              日本円の現金をそのままチャージして韓国ウォン決済ができるプリペイドカード「WOWPASS」。交通カード(T-money)機能も一体化されており必須です。
+            </p>
+          </div>
+
+          <!-- Guide Item 2 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-red-300 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-extrabold flex items-center justify-center text-base mb-5">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">通信・eSIM / Wi-Fi</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              SIMカード差し替え不要の「eSIM」が主流。事前にオンライン購入しておけば、韓国の空港に到着した瞬間からスムーズに高速通信が利用できます。
+            </p>
+          </div>
+
+          <!-- Guide Item 3 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-red-300 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-extrabold flex items-center justify-center text-base mb-5">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">必須アプリ (NAVER Map)</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              韓国ではGoogleマップの徒歩ルート案内が制限されているため、「NAVER Map(日本語対応)」または「KakaoMap」の事前ダウンロードが不可欠です。
+            </p>
+          </div>
+
+          <!-- Guide Item 4 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-red-300 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 font-extrabold flex items-center justify-center text-base mb-5">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">観光案内 1330番</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              韓国観光公社が運営する無料電話案内サービス「1330」。24時間年中無休で日本語による観光情報案内やトラブル時の通訳サポートが受けられます。
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Culture & Gourmet Showcase Section -->
+    <section id="culture" class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-6 relative">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border border-slate-200 group">
+              <img src="./assets/img/kfood_gourmet.jpg" alt="韓国本場のサムギョプサルとビビンバ、多彩なパンチャン料理" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 space-y-6">
+            <span class="text-xs font-bold tracking-widest text-red-600 uppercase">K-Food &amp; Culture Experience</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 leading-tight">
+              五感で満喫する本場の美味。<br>韓国グルメ＆トレンドカルチャー
+            </h2>
+            <p class="text-base text-slate-600 leading-relaxed">
+              香ばしく焼き上げる極厚サムギョプサル、滋味深いタッカンマリ、具沢山の石焼ビビンバから、市場の活気溢れるトッポッキやキンパまで。韓国の食文化は旅の最大のハイライトです。
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-600 text-xs font-bold mt-0.5">&check;</span>
+                <p class="text-sm text-slate-700 font-medium">無料でおかわり自由の多彩なパンチャン(小皿おかず文化)</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-600 text-xs font-bold mt-0.5">&check;</span>
+                <p class="text-sm text-slate-700 font-medium">聖水(ソンス)・延南洞(ヨンナムドン)の感性豊かなデザートカフェ巡り</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-600 text-xs font-bold mt-0.5">&check;</span>
+                <p class="text-sm text-slate-700 font-medium">チマチョゴリ(韓服)を着用すると古宮(景福宮など)の入場料が無料に</p>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <a href="#inquiry" class="inline-flex items-center gap-2 text-sm font-bold text-red-600 hover:text-red-700">
+                おすすめグルメスポット一覧を相談する &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section (Accordion) -->
+    <section id="faq" class="py-20 bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16">
+          <span class="text-xs font-bold tracking-widest text-red-600 uppercase">Frequently Asked Questions</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">よくあるご質問 (FAQ)</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600">渡航前の疑問や現地での不安を解消する基本情報をまとめました。</p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <!-- FAQ 1 -->
+          <div class="faq-item bg-slate-50 rounded-xl border border-slate-200 overflow-hidden active">
+            <button type="button" class="faq-header w-full px-6 py-5 text-left flex items-center justify-between font-bold text-slate-900 hover:bg-slate-100/80 transition-colors">
+              <span class="text-base sm:text-lg">Q. 日本語はどの程度通じますか？ 韓国語が話せなくても大丈夫ですか？</span>
+              <svg class="faq-chevron w-5 h-5 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-content px-6 pb-6 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+              明洞や東大門などの主要観光地、空港、大型ホテルでは日本語を話せるスタッフが多く在籍しています。また、地下鉄の券売機や車内アナウンスも日本語対応しているため、韓国語が話せなくても安心して旅行をお楽しみいただけます。翻訳アプリ「Papago」をスマホに入れておくとさらに便利です。
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+            <button type="button" class="faq-header w-full px-6 py-5 text-left flex items-center justify-between font-bold text-slate-900 hover:bg-slate-100/80 transition-colors">
+              <span class="text-base sm:text-lg">Q. 現金(ウォン)はどのくらい両替しておくべきですか？</span>
+              <svg class="faq-chevron w-5 h-5 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-content px-6 pb-6 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+              韓国は世界有数のキャッシュレス社会であり、コンビニやカフェ、タクシーなどほぼ全ての場所でクレジットカードやWOWPASSが使えます。屋台グルメや市場での買い物、交通カードの現金チャージ用に、2泊3日で1〜2万円分程度のウォン現金があれば十分です。
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+            <button type="button" class="faq-header w-full px-6 py-5 text-left flex items-center justify-between font-bold text-slate-900 hover:bg-slate-100/80 transition-colors">
+              <span class="text-base sm:text-lg">Q. チップの習慣はありますか？</span>
+              <svg class="faq-chevron w-5 h-5 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-content px-6 pb-6 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+              日本と同様にチップの習慣はありません。飲食店やタクシー、ホテルなどでも表示通りの金額を支払えば問題ありません。高級ホテル等のサービス料はあらかじめ会計に含まれています。
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+            <button type="button" class="faq-header w-full px-6 py-5 text-left flex items-center justify-between font-bold text-slate-900 hover:bg-slate-100/80 transition-colors">
+              <span class="text-base sm:text-lg">Q. おひとりさま(一人旅)でも食事や観光は楽しめますか？</span>
+              <svg class="faq-chevron w-5 h-5 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-content px-6 pb-6 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+              近年は韓国でも一人ごはん(ホンパブ文化)が定着しており、一人用の鍋料理や定食、キンパチェーン店、カウンター席を備えた飲食店が増えています。治安も極めて良好なため、女性の一人旅でも安心して滞在できます。
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Inquiry / Contact Section -->
+    <section id="inquiry" class="py-20 bg-slate-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-xs font-bold tracking-widest text-red-600 uppercase">Contact &amp; Newsletter</span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">旅行相談・最新ニュースレター登録</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600">渡航に関するご相談やお勧めコースのご提案、最新の観光情報をお届けします。</p>
+        </div>
+
+        <div class="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-sm">
+          
+          <div id="formFeedback" class="hidden mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold"></div>
+
+          <form id="inquiryForm" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="userName" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">お名前</label>
+                <input type="text" id="userName" required placeholder="山田 太郎" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm bg-slate-50">
+              </div>
+              <div>
+                <label for="userEmail" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">メールアドレス</label>
+                <input type="email" id="userEmail" required placeholder="example@domain.jp" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm bg-slate-50">
+              </div>
+            </div>
+
+            <div>
+              <label for="travelArea" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">ご希望の渡航エリア</label>
+              <select id="travelArea" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm bg-slate-50">
+                <option value="seoul">ソウル (定番・ショッピング・カフェ)</option>
+                <option value="busan">釜山 (ビーチリゾート・海鮮グルメ)</option>
+                <option value="jeju">済州島 (自然遺産・リフレッシュ)</option>
+                <option value="roundtrip">周遊旅行 (KTX利用)</option>
+                <option value="other">その他・未定</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="inquiryMessage" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">ご相談内容・お問い合わせ</label>
+              <textarea id="inquiryMessage" rows="4" required placeholder="予定している旅行日数、同行者、興味のあるグルメや体験などを自由にご記入ください。" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm bg-slate-50"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors shadow-md shadow-red-600/20">
+              送信する (無料相談)
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-600 text-white font-bold text-sm">
+            KR
+          </span>
+          <span class="text-base font-black text-white">KOREA JOURNEY | 韓国公式観光・旅行ガイド</span>
+        </div>
+        <div class="flex flex-wrap gap-6 text-xs text-slate-400">
+          <a href="#destinations" class="hover:text-white">人気エリア</a>
+          <a href="#essentials" class="hover:text-white">旅の必須準備</a>
+          <a href="#culture" class="hover:text-white">グルメ＆体験</a>
+          <a href="#faq" class="hover:text-white">よくある質問</a>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>&copy; 2026 KOREA JOURNEY. All rights reserved. 本サイトは日本人旅行者向けの情報提供を目的として制作されています。</p>
+        <p>韓国観光公社 日本語電話案内: 1330 (韓国内・通話料のみ)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- Custom Script -->
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
