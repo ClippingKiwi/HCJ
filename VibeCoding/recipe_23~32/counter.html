@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>글자수 / 바이트 계산기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">🔤</span>
+      <h1>글자수 / 바이트 계산기</h1>
+      <p>한글은 2byte, 그 외 문자는 1byte로 계산합니다.</p>
+    </header>
+
+    <section class="panel">
+      <textarea id="input" class="text-area" placeholder="여기에 텍스트를 입력하세요..."></textarea>
+      <div class="tool-row">
+        <span class="hint" id="hint">0자 입력됨</span>
+        <div class="btn-group">
+          <button type="button" class="ghost-btn" id="pasteBtn">붙여넣기</button>
+          <button type="button" class="ghost-btn" id="clearBtn">지우기</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stat-grid">
+      <div class="stat"><span class="stat-label">글자 수 (공백 포함)</span><strong id="charAll">0</strong></div>
+      <div class="stat"><span class="stat-label">글자 수 (공백 제외)</span><strong id="charNoSpace">0</strong></div>
+      <div class="stat accent"><span class="stat-label">바이트 (한글 2byte)</span><strong id="byteKr">0</strong></div>
+      <div class="stat"><span class="stat-label">바이트 (UTF-8)</span><strong id="byteUtf8">0</strong></div>
+      <div class="stat"><span class="stat-label">단어 수</span><strong id="wordCount">0</strong></div>
+      <div class="stat"><span class="stat-label">공백 개수</span><strong id="spaceCount">0</strong></div>
+      <div class="stat"><span class="stat-label">줄 수</span><strong id="lineCount">1</strong></div>
+      <div class="stat"><span class="stat-label">한글 / 그 외</span><strong id="korRatio">0 / 0</strong></div>
+    </section>
+  </main>
+
+  <script src="counter.js"></script>
+</body>
+</html>

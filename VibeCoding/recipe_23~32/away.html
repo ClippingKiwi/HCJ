@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>자리 비움 안내판 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">🚪</span>
+      <h1>자리 비움 안내판</h1>
+      <p>일정과 복귀 시간을 입력하면 전체화면 안내판이 켜집니다.</p>
+    </header>
+
+    <section class="panel">
+      <form id="awayForm" novalidate>
+        <div class="field">
+          <label for="schedule">일정 <span class="req">*</span></label>
+          <input type="text" id="schedule" maxlength="24" placeholder="예: 팀 정기회의" value="회의 중" />
+          <p class="field-hint">가장 큰 글자로 표시됩니다. (24자 이내 권장)</p>
+        </div>
+
+        <div class="field">
+          <label for="returnAt">복귀 예정 시각 <span class="req">*</span></label>
+          <input type="datetime-local" id="returnAt" />
+          <div class="quick-row" id="quickRow">
+            <button type="button" class="chip-btn" data-min="10">+10분</button>
+            <button type="button" class="chip-btn" data-min="30">+30분</button>
+            <button type="button" class="chip-btn" data-min="60">+1시간</button>
+            <button type="button" class="chip-btn" data-min="120">+2시간</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="memo">기타 안내 문구</label>
+          <textarea id="memo" class="text-area small" maxlength="120"
+            placeholder="예: 급한 용건은 사내 메신저로 남겨주세요."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="password">잠금 해제 비밀번호 <span class="req">*</span></label>
+          <div class="pw-wrap">
+            <input type="password" id="password" maxlength="20" placeholder="2자 이상 입력" autocomplete="off" />
+            <button type="button" class="ghost-btn" id="togglePw">보기</button>
+          </div>
+          <p class="field-hint">브라우저 메모리에만 저장되며, 새로고침하면 사라집니다.</p>
+        </div>
+
+        <p class="error" id="errorMsg" hidden></p>
+        <button type="submit" class="primary-btn">확인 · 안내판 켜기 🖥️</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- ─────────── 전체화면 안내판 ─────────── -->
+  <div class="away-screen" id="awayScreen" hidden>
+    <span class="away-blob b1"></span>
+    <span class="away-blob b2"></span>
+    <span class="away-blob b3"></span>
+
+    <div class="away-inner">
+      <p class="away-eyebrow">AWAY FROM KEYBOARD</p>
+      <h1 class="away-title" id="oSchedule">회의 중</h1>
+
+      <div class="away-cards">
+        <div class="away-card">
+          <span class="away-card-label">복귀 예정</span>
+          <strong class="away-card-value" id="oReturn">--:--</strong>
+        </div>
+        <div class="away-card">
+          <span class="away-card-label" id="oCountLabel">남은 시간</span>
+          <strong class="away-card-value mono" id="oCountdown">--:--:--</strong>
+        </div>
+      </div>
+
+      <div class="away-progress"><i id="oProgress"></i></div>
+
+      <p class="away-memo" id="oMemo" hidden></p>
+    </div>
+
+    <div class="away-foot">
+      <span class="away-clock mono" id="oClock">--:--:--</span>
+      <button type="button" class="away-unlock" id="unlockBtn">🔒 잠금 해제</button>
+    </div>
+
+    <!-- 비밀번호 모달 -->
+    <div class="pw-modal" id="pwModal" hidden>
+      <div class="pw-box" id="pwBox">
+        <h3>비밀번호 입력</h3>
+        <p class="pw-sub">안내판을 종료하려면 비밀번호를 입력하세요.</p>
+        <input type="password" id="pwInput" maxlength="20" autocomplete="off" placeholder="••••" />
+        <p class="pw-error" id="pwError" hidden>비밀번호가 일치하지 않습니다.</p>
+        <div class="pw-btns">
+          <button type="button" class="ghost-btn" id="pwCancel">취소</button>
+          <button type="button" class="primary-btn slim" id="pwSubmit">해제하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="away.js"></script>
+</body>
+</html>

@@ -1,0 +1,1385 @@
+/* ==========================================================
+   드미트리 ♥ 로렐라이 모바일 청첩장 스타일시트 (style.css)
+   Aesthetic, Elegant, Mobile-Optimized Wedding Invitation
+   ========================================================== */
+
+:root {
+  --primary: #c5a880;
+  --primary-dark: #9f7d54;
+  --primary-light: #f7f2ea;
+  --text-main: #2b2725;
+  --text-muted: #746c66;
+  --text-light: #9e958f;
+  --bg-page: #ebe7e1;
+  --bg-card: #ffffff;
+  --bg-sub: #faf8f5;
+  --border-light: #ebe3d9;
+  --rose-accent: #d88989;
+  --gold-gradient: linear-gradient(135deg, #c5a880 0%, #deb887 50%, #b89366 100%);
+  --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  --elevated-shadow: 0 15px 35px rgba(164, 132, 94, 0.12);
+  --font-serif-kr: 'Gowun Batang', 'Noto Serif KR', serif;
+  --font-serif-en: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: var(--font-serif-kr);
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 꽃잎 캔버스 */
+#petal-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* 플로팅 효과 토글 버튼 */
+.floating-effect-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(197, 168, 128, 0.3);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: var(--transition-smooth);
+}
+
+.floating-effect-btn:active {
+  transform: scale(0.92);
+}
+
+.floating-effect-btn.disabled {
+  opacity: 0.45;
+  color: var(--text-light);
+}
+
+/* 모바일 뷰 래퍼 (최대 너비 450px) */
+.mobile-wrapper {
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: var(--bg-card);
+  min-height: 100vh;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================
+   1. Hero Section
+   ========================================================== */
+.hero-section {
+  padding: 50px 24px 30px;
+  text-align: center;
+  background: linear-gradient(180deg, #faf7f2 0%, #ffffff 100%);
+  position: relative;
+}
+
+.hero-top-tag {
+  margin-bottom: 24px;
+}
+
+.script-subtitle {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  color: var(--primary-dark);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.hero-quote {
+  font-family: var(--font-serif-en);
+  font-size: 2.1rem;
+  font-style: italic;
+  color: var(--text-main);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.hero-image-card {
+  position: relative;
+  margin: 0 auto 28px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--elevated-shadow);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+.hero-img-frame {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 1.2s ease;
+}
+
+.hero-image-card:hover .hero-img {
+  transform: scale(1.03);
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(to top, rgba(0,0,0,0.25), transparent);
+  pointer-events: none;
+}
+
+.hero-info {
+  margin-top: 10px;
+}
+
+.names-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.groom-name, .bride-name {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+}
+
+.heart-divider {
+  color: var(--rose-accent);
+  font-size: 0.85rem;
+  animation: heartPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.date-location-badge {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--bg-sub);
+  border: 1px solid var(--border-light);
+  border-radius: 30px;
+}
+
+.wedding-datetime {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--primary-dark);
+  margin-bottom: 2px;
+}
+
+.wedding-venue {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.scroll-down-indicator {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-light);
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+}
+
+.scroll-down-indicator .bounce {
+  animation: bounceDown 2s infinite;
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(6px); }
+  60% { transform: translateY(3px); }
+}
+
+/* ==========================================================
+   공통 섹션 레이아웃
+   ========================================================== */
+.section {
+  padding: 60px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.section:nth-of-type(even) {
+  background-color: var(--bg-sub);
+}
+
+.section-badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--primary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.section-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.ornament-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px auto 26px;
+  width: 140px;
+  position: relative;
+}
+
+.ornament-line::before, .ornament-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: rgba(197, 168, 128, 0.4);
+}
+
+.ornament-leaf {
+  padding: 0 10px;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   2. Invitation Section
+   ========================================================== */
+.invitation-text-box {
+  margin: 0 auto 36px;
+  max-width: 340px;
+}
+
+.letter-verse {
+  font-size: 0.98rem;
+  color: var(--text-main);
+  line-height: 2.1;
+  letter-spacing: 0.02em;
+}
+
+.verse-spacing {
+  height: 16px;
+}
+
+.highlight-text {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.family-relation-box {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 22px 20px;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: var(--soft-shadow);
+}
+
+.relation-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.94rem;
+  line-height: 2.2;
+}
+
+.parents-name {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.relation-kind {
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.person-highlight {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+/* ==========================================================
+   3. Profile & Contact Section
+   ========================================================== */
+.profile-section {
+  padding-top: 20px;
+}
+
+.profile-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: var(--soft-shadow);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+
+.profile-avatar-wrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin-bottom: 16px;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 20%;
+  border: 3px solid var(--primary-light);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.role-badge {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold-gradient);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  padding: 3px 12px;
+  border-radius: 20px;
+  box-shadow: 0 3px 8px rgba(197, 168, 128, 0.4);
+}
+
+.profile-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.profile-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.contact-action-btn {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font-serif-kr);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.groom-btn {
+  background: #f1f4f8;
+  color: #3b5998;
+  border: 1px solid #dce4ee;
+}
+
+.bride-btn {
+  background: #fbf0f0;
+  color: #c05c6e;
+  border: 1px solid #f6dede;
+}
+
+.contact-action-btn:hover {
+  filter: brightness(0.96);
+  transform: translateY(-2px);
+}
+
+.contact-action-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================
+   4. Calendar & Countdown Section (실시간 카운트다운 애니메이션)
+   ========================================================== */
+.countdown-section {
+  background: linear-gradient(180deg, #ffffff 0%, #faf6f0 100%);
+}
+
+.mini-calendar-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 18px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--soft-shadow);
+  max-width: 360px;
+  margin: 0 auto 36px;
+}
+
+.calendar-header {
+  margin-bottom: 16px;
+}
+
+.cal-month {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--primary-dark);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f0eae1;
+  padding-bottom: 8px;
+}
+
+.calendar-weekdays .sun { color: #d46565; }
+.calendar-weekdays .sat { color: #5879aa; }
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px 0;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+
+.calendar-grid span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  position: relative;
+}
+
+.calendar-grid .sun { color: #d46565; }
+.calendar-grid .sat { color: #5879aa; }
+.calendar-grid .empty { pointer-events: none; }
+
+.wedding-day-cell {
+  position: relative;
+  z-index: 1;
+}
+
+.wedding-day-cell .day-num {
+  position: relative;
+  z-index: 2;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.wedding-day-cell::before {
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  z-index: 1;
+  box-shadow: 0 4px 10px rgba(197, 168, 128, 0.5);
+  animation: pulse-ring 2s infinite ease-in-out;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(197, 168, 128, 0.5); }
+  50% { transform: scale(1.1); box-shadow: 0 6px 16px rgba(197, 168, 128, 0.7); }
+}
+
+.cal-heart {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  font-size: 0.6rem;
+  color: #ffffff;
+  z-index: 3;
+}
+
+/* 카운트다운 타이머 디스플레이 */
+.countdown-timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto 24px;
+}
+
+.timer-unit {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-box {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 72px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timer-box::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.timer-number {
+  font-family: var(--font-sans);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: -0.02em;
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* 1초마다 초/분 변경 시 플립/스케일 틱 애니메이션 */
+.timer-number.tick-animate {
+  animation: tickPulse 0.4s ease;
+}
+
+@keyframes tickPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.18); color: var(--rose-accent); }
+  100% { transform: scale(1); }
+}
+
+.timer-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+.timer-colon {
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 24px;
+  animation: blinkColon 1s infinite ease-in-out;
+}
+
+@keyframes blinkColon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* 실시간 라이브 뱃지 및 문구 */
+.live-counter-message {
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--soft-shadow);
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #e04a4a;
+  background: #ffeeee;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e04a4a;
+  animation: liveBlink 1.4s infinite;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+.live-text {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* ==========================================================
+   5. Gallery Section
+   ========================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  background-color: #f2ece4;
+}
+
+.gallery-item.large {
+  grid-column: span 2;
+  aspect-ratio: 16 / 11;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item .item-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-item:hover .item-overlay {
+  opacity: 1;
+}
+
+/* ==========================================================
+   6. Location Section (오시는 길)
+   ========================================================== */
+.venue-info-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--soft-shadow);
+  max-width: 360px;
+  margin: 0 auto 20px;
+}
+
+.venue-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.venue-hall {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+}
+
+.venue-address {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.venue-tel {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+/* 약도 및 내비게이션 버튼 */
+.map-graphic-box {
+  background: #f8f6f1;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  max-width: 360px;
+  margin: 0 auto 28px;
+}
+
+.map-placeholder {
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #f5efe6 10%, #eae2d6 90%);
+  position: relative;
+}
+
+.map-pin-pulse {
+  color: #e04a4a;
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+  animation: bounceDown 1.5s infinite;
+}
+
+.pin-text {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navigation-links {
+  display: flex;
+  background: #ffffff;
+  border-top: 1px solid var(--border-light);
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px 4px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-main);
+  border-right: 1px solid var(--border-light);
+  transition: background-color 0.2s;
+}
+
+.nav-btn:last-child {
+  border-right: none;
+}
+
+.nav-btn:hover {
+  background-color: var(--bg-sub);
+}
+
+.nav-icon {
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.nav-btn.naver .nav-icon { color: #03c75a; }
+.nav-btn.kakao .nav-icon { color: #f9e000; background: #3c1e1e; border-radius: 4px; padding: 1px 4px; }
+.nav-btn.tmap .nav-icon { color: #e51a4b; }
+
+/* 교통편 상세 */
+.transport-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.transport-item {
+  display: flex;
+  gap: 14px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border-light);
+}
+
+.transport-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-sub);
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.transport-info h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-main);
+}
+
+.transport-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   7. Account Section (마음 전하시는 곳)
+   ========================================================== */
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  box-shadow: var(--soft-shadow);
+  transition: var(--transition-smooth);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: none;
+  font-family: var(--font-serif-kr);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.accordion-header:hover {
+  background-color: #fdfbf8;
+}
+
+.acc-arrow {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  transition: transform 0.35s ease;
+}
+
+.accordion-item.active .acc-arrow {
+  transform: rotate(180deg);
+  color: var(--primary-dark);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  background: var(--bg-sub);
+  padding: 0 16px;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 180px;
+  padding: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.account-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #efe8df;
+  text-align: left;
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.bank-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.account-holder {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.number-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.account-number {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+  letter-spacing: 0.04em;
+}
+
+.copy-btn {
+  padding: 6px 12px;
+  background: var(--bg-sub);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-smooth);
+}
+
+.copy-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* ==========================================================
+   8. Footer & Share
+   ========================================================== */
+.footer-section {
+  padding: 40px 24px 60px;
+  background: #252221;
+  color: #d1c8c0;
+  text-align: center;
+}
+
+.share-buttons-wrap {
+  display: flex;
+  gap: 12px;
+  max-width: 360px;
+  margin: 0 auto 36px;
+}
+
+.share-action-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font-serif-kr);
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.link-copy-btn {
+  background: #393533;
+  color: #f5efe6;
+  border: 1px solid #4a4542;
+}
+
+.kakao-share-btn {
+  background: #fae100;
+  color: #371d1e;
+}
+
+.share-action-btn:active {
+  transform: scale(0.96);
+}
+
+.footer-quote {
+  font-family: var(--font-serif-en);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.footer-sign {
+  font-size: 0.95rem;
+  color: #a89f97;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+.footer-copyright {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: #726b65;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================
+   Modals & Lightbox & Toast
+   ========================================================== */
+/* 연락처 바텀시트 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  background: #ffffff;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 24px 34px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.modal-overlay.active .bottom-sheet {
+  transform: translateY(0);
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sheet-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.sheet-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.sheet-target-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.sheet-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sheet-btn {
+  padding: 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-serif-kr);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.sheet-btn i {
+  font-size: 1.3rem;
+}
+
+.sheet-btn.call {
+  background: #eef7ee;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.sheet-btn.sms {
+  background: #eef4fc;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.sheet-btn:active {
+  transform: scale(0.96);
+}
+
+/* 갤러리 라이트박스 */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 310;
+  padding: 8px;
+}
+
+.lightbox-content {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img-wrap {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background-color 0.2s;
+  z-index: 310;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.lightbox-nav.prev { left: 10px; }
+.lightbox-nav.next { right: 10px; }
+
+.lightbox-counter {
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+}
+
+/* 토스트 메시지 */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 400;
+  pointer-events: none;
+}
+
+.toast-message {
+  background: rgba(43, 39, 37, 0.92);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast-message i {
+  color: #a3e635;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 스크롤 리빌 애니메이션 */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MINI APPS · 웹 앱 모음</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="home">
+  <main class="wrap">
+    <header class="hero">
+      <p class="hero-badge">MINI WEB APPS</p>
+      <h1 class="hero-title">필요한 도구를 골라보세요</h1>
+      <p class="hero-desc">설치 없이 브라우저에서 바로 쓰는 작은 도구 모음입니다.</p>
+    </header>
+
+    <section class="card-grid">
+      <a class="app-card" href="fortune.html">
+        <span class="app-icon">🔮</span>
+        <h2>오늘의 운세</h2>
+        <p>이름·생일·성별과 오행으로 보는 오늘의 운세</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="counter.html">
+        <span class="app-icon">🔤</span>
+        <h2>글자수 / 바이트 계산기</h2>
+        <p>입력한 텍스트의 글자 수와 바이트를 실시간 계산</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="docstat.html">
+        <span class="app-icon">📄</span>
+        <h2>문서 분석기</h2>
+        <p>PDF·DOCX 업로드 시 글자 수, 단어 수, 공백 수, 이미지 수 분석</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+            <a class="app-card" href="lorem.html">
+        <span class="app-icon">📝</span>
+        <h2>Lorem Ipsum 생성기</h2>
+        <p>슬라이더로 10~1000자 사이 더미 텍스트를 즉시 생성하고 복사</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="pdfmerge.html">
+        <span class="app-icon">📚</span>
+        <h2>PDF 병합기</h2>
+        <p>여러 PDF를 파일 하나로 합치기</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="bmi.html">
+        <span class="app-icon">⚖️</span>
+        <h2>BMI 계산기</h2>
+        <p>키·몸무게·성별로 BMI와 목표 체중까지 계산</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+            <a class="app-card" href="away.html">
+        <span class="app-icon">🚪</span>
+        <h2>자리 비움 안내판</h2>
+        <p>일정·복귀 시간·카운트다운을 전체화면으로 표시하고 비밀번호로 잠금</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="pinball.html">
+        <span class="app-icon">🎰</span>
+        <h2>핀볼 이름 추첨기</h2>
+        <p>구슬을 발사해 장애물을 거쳐 골인한 칸의 이름을 당첨자로 선정</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+            <a class="app-card" href="summary.html">
+        <span class="app-icon">✍️</span>
+        <h2>문서 요약기</h2>
+        <p>PDF·DOCX·TXT를 TextRank 알고리즘으로 1~5문장 요점 요약</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <a class="app-card" href="audio.html">
+        <span class="app-icon">🎧</span>
+        <h2>오디오 편집기</h2>
+        <p>MP3·WAV 구간 자르기, 볼륨 조절, 포맷 변환까지 브라우저에서</p>
+        <span class="app-btn">바로가기 →</span>
+      </a>
+
+      <div class="coming-soon">
+        <span class="cs-dots" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </span>
+        <strong class="cs-title">더 많은 앱들이 추가될 예정입니다</strong>
+        <span class="cs-sub">Coming Soon</span>
+
+        <button type="button" class="cs-btn" id="contactBtn">
+          ✉️ 문의하기
+        </button>
+      </div>
+    </section>
+
+    <footer class="foot">© 2026 Mini Web Apps · 모든 처리는 브라우저에서만 이루어집니다.</footer>
+  </main>
+
+    <!-- ─────────── 문의하기 모달 ─────────── -->
+  <div class="mail-modal" id="mailModal" hidden>
+    <div class="mail-box" id="mailBox" role="dialog" aria-modal="true" aria-labelledby="mailTitle">
+      <button type="button" class="mail-close" id="mailClose" aria-label="닫기">✕</button>
+
+      <h3 id="mailTitle">✉️ 문의하기</h3>
+      <p class="mail-sub">불편사항이나 제안사항을 언제든 자유롭게 보내주세요.</p>
+
+      <div class="field">
+        <label for="mailType">문의 유형</label>
+        <div class="select-wrap">
+          <select id="mailType">
+            <option value="bug">🐞 버그 제보</option>
+            <option value="idea">💡 앱 제안</option>
+            <option value="etc" selected>💬 기타 문의</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mailSubject">제목</label>
+        <input type="text" id="mailSubject" maxlength="60" placeholder="예: 새로운 앱 아이디어 제안" />
+      </div>
+
+      <div class="field">
+        <label for="mailBody">내용</label>
+        <textarea id="mailBody" class="text-area small" maxlength="1000"
+          placeholder="문의 내용을 자유롭게 적어주세요."></textarea>
+      </div>
+
+      <div class="mail-addr">
+        <span class="mail-addr-label">받는 사람</span>
+        <code id="mailTo">hello@example.com</code>
+      </div>
+
+      <p class="mail-error" id="mailError" hidden></p>
+
+      <div class="mail-btns">
+        <button type="button" class="ghost-btn" id="mailCopy">주소 복사</button>
+        <button type="button" class="primary-btn slim" id="mailSend">메일 앱으로 열기</button>
+      </div>
+
+      <p class="field-hint">
+        메일 앱이 열리지 않으면 주소를 복사해 웹메일에서 직접 보내주세요.
+      </p>
+    </div>
+  </div>
+
+  <script src="contact.js"></script>
+</body>
+</html>

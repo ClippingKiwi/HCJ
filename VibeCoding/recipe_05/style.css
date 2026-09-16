@@ -1,0 +1,829 @@
+/* ==========================================================================
+   Smart QR - Neon Cyber & High-Contrast Design System
+   ========================================================================== */
+
+:root {
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Color Palette */
+  --bg-primary: #040711;
+  --bg-surface: #0A1024;
+  
+  /* Neon Palette */
+  --neon-cyan: #00F2FE;
+  --neon-blue: #4FACFE;
+  --neon-purple: #BD00FF;
+  --neon-pink: #FF007A;
+  --neon-indigo: #6366F1;
+  
+  /* Header Gradient: Smooth Natural Navy Spectrum */
+  --header-gradient: linear-gradient(95deg, #070E22 0%, #0C1A3A 35%, #12244F 70%, #183168 100%);
+  --neon-btn-gradient: linear-gradient(135deg, #00F2FE 0%, #3B82F6 45%, #8B5CF6 75%, #D946EF 100%);
+  
+  --text-primary: #F9FAFB;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Ambient Neon Background Effects
+   ========================================================================== */
+.bg-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  transition: opacity 0.8s ease;
+}
+
+/* Neon Cyan / Electric Blue Orb (Top-Left) */
+.bg-glow-1 {
+  top: 5%;
+  left: -5%;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.45) 0%, rgba(79, 172, 254, 0.2) 40%, transparent 70%);
+  animation: neonPulseCyan 9s ease-in-out infinite alternate;
+}
+
+/* Neon Magenta / Purple Orb (Bottom-Right) */
+.bg-glow-2 {
+  bottom: -10%;
+  right: -5%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(189, 0, 255, 0.42) 0%, rgba(255, 0, 122, 0.22) 45%, transparent 70%);
+  animation: neonPulseMagenta 11s ease-in-out infinite alternate;
+}
+
+/* Neon Sapphire / Deep Blue Center-Left Orb */
+.bg-glow-3 {
+  top: 45%;
+  left: 30%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%);
+  animation: neonPulseCenter 13s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseCyan {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(40px, 30px) scale(1.15);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-20px, 50px) scale(0.95);
+    opacity: 0.5;
+  }
+}
+
+@keyframes neonPulseMagenta {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translate(-50px, -40px) scale(1.2);
+    opacity: 0.68;
+  }
+  100% {
+    transform: translate(30px, -20px) scale(0.9);
+    opacity: 0.48;
+  }
+}
+
+@keyframes neonPulseCenter {
+  0% {
+    transform: scale(0.9) translate(0, 0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.15) translate(30px, -30px);
+    opacity: 0.55;
+  }
+}
+
+/* Neon Grid Overlay */
+.bg-grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0, 242, 254, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, #000 45%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, #000 45%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Cyber Horizon Neon Line at bottom */
+.bg-cyber-horizon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00F2FE 20%, #BD00FF 50%, #00F2FE 80%, transparent);
+  box-shadow: 0 0 20px #00F2FE, 0 0 40px #BD00FF;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   App Layout
+   ========================================================================== */
+.app-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Header: White & Navy Gradient with Neon Divider
+   ========================================================================== */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.5rem;
+  z-index: 50;
+  
+  /* White & Navy Gradient */
+  background: var(--header-gradient);
+  
+  /* Neon Divider Line */
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, rgba(0, 242, 254, 0.35) 0%, rgba(99, 102, 241, 0.45) 50%, rgba(56, 189, 248, 0.4) 100%) 1;
+  
+  /* Neon Underglow */
+  box-shadow: 
+    0 4px 30px rgba(0, 242, 254, 0.28),
+    0 12px 40px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.symbol-container {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: 
+    transform 0.3s var(--ease-spring), 
+    border-color 0.3s ease, 
+    box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.symbol-container:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.logo-symbol {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-brand-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+/* Header Right: Smart QR on the White Side */
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.site-title::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #67E8F9;
+  box-shadow: 0 0 10px #67E8F9, 0 0 18px #67E8F9;
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+.main-content {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   QR Stage (Center of the screen)
+   ========================================================================== */
+.qr-stage {
+  position: absolute;
+  top: calc(50% - 30px);
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: 
+    opacity 0.5s var(--ease-smooth),
+    transform 0.6s var(--ease-spring),
+    visibility 0.5s;
+  z-index: 10;
+}
+
+.qr-stage.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.qr-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Pristine QR Code Card with Dual Neon Halo */
+.qr-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 28px;
+  padding: 24px;
+  cursor: pointer;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    0 0 0 2px rgba(0, 242, 254, 0.55),
+    0 0 45px rgba(0, 242, 254, 0.35),
+    0 0 85px rgba(189, 0, 255, 0.25);
+  transition: 
+    transform 0.35s var(--ease-spring),
+    box-shadow 0.35s var(--ease-spring);
+  overflow: hidden;
+  user-select: none;
+  outline: none;
+}
+
+.qr-card:hover, .qr-card:focus-visible {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 
+    0 35px 75px rgba(0, 0, 0, 0.98),
+    0 0 0 3px var(--neon-cyan),
+    0 0 60px rgba(0, 242, 254, 0.75),
+    0 0 110px rgba(189, 0, 255, 0.45);
+}
+
+.qr-card:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.qr-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+  min-height: 240px;
+}
+
+.qr-code-box canvas {
+  display: block !important;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.qr-code-box img {
+  display: none !important;
+}
+
+/* Hover Download Overlay */
+.qr-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 15, 38, 0.86);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 28px;
+  transition: opacity 0.25s var(--ease-smooth);
+}
+
+.qr-card:hover .qr-overlay,
+.qr-card:focus-visible .qr-overlay {
+  opacity: 1;
+}
+
+.download-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--neon-btn-gradient);
+  color: #FFFFFF;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 
+    0 0 25px rgba(0, 242, 254, 0.7),
+    0 8px 25px rgba(0, 0, 0, 0.5);
+  transform: translateY(6px);
+  transition: transform 0.3s var(--ease-spring);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.qr-card:hover .download-badge {
+  transform: translateY(0);
+}
+
+.download-icon {
+  width: 20px;
+  height: 20px;
+  animation: bounceDown 1.8s infinite;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* Meta Information under QR Code */
+.qr-meta-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.qr-hint-text {
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+}
+
+.qr-hint-text strong {
+  color: var(--neon-cyan);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+.hint-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 6px var(--neon-cyan));
+}
+
+.current-target-url {
+  font-size: 0.82rem;
+  color: #64748B;
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   URL Input Dock (Transforms from Center to Bottom)
+   ========================================================================== */
+.url-dock {
+  position: absolute;
+  left: 50%;
+  width: 90%;
+  max-width: 660px;
+  z-index: 20;
+  transition: 
+    top 0.7s var(--ease-spring),
+    bottom 0.7s var(--ease-spring),
+    transform 0.7s var(--ease-spring);
+}
+
+/* State 1: Initial Centered State */
+.url-dock.is-centered {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* State 2: Active Bottom State */
+.url-dock.is-bottom {
+  top: calc(100% - 105px);
+  transform: translate(-50%, 0);
+}
+
+.dock-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Intro Headline */
+.intro-headline {
+  text-align: center;
+  margin-bottom: 2rem;
+  max-height: 150px;
+  opacity: 1;
+  transition: 
+    opacity 0.4s ease,
+    max-height 0.6s var(--ease-spring),
+    margin-bottom 0.5s ease;
+  overflow: hidden;
+}
+
+.url-dock.is-bottom .intro-headline {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 30%, #CBD5E1 55%, #94A3B8 85%, #E2E8F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(226, 232, 240, 0.2);
+  margin-bottom: 0.6rem;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: #CBD5E1;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Form & Input Box */
+.url-form {
+  width: 100%;
+}
+
+.input-box-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(7, 15, 35, 0.82);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: var(--radius-full);
+  padding: 8px 10px 8px 22px;
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(0, 242, 254, 0.2),
+    inset 0 0 15px rgba(0, 242, 254, 0.06);
+  transition: 
+    border-color 0.3s ease, 
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.url-dock.is-bottom .input-box-container {
+  background: rgba(7, 14, 32, 0.95);
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(0, 242, 254, 0.35);
+}
+
+.input-box-container:focus-within {
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(0, 242, 254, 0.55),
+    0 0 70px rgba(189, 0, 255, 0.25),
+    inset 0 0 20px rgba(0, 242, 254, 0.12);
+}
+
+.input-prefix-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neon-cyan);
+  filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6));
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+
+.input-prefix-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.url-input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  padding: 8px 0;
+  min-width: 0;
+}
+
+.url-input-field::placeholder {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+/* Clear Button */
+.btn-clear {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  margin-right: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-clear.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-clear:hover {
+  color: var(--neon-cyan);
+  background: rgba(0, 242, 254, 0.15);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+.btn-clear svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Confirm / Submit Button: Neon Gradient */
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--neon-btn-gradient);
+  color: #FFFFFF;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 
+    0 0 22px rgba(0, 242, 254, 0.6),
+    0 4px 15px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: 
+    transform 0.2s var(--ease-spring),
+    box-shadow 0.25s ease,
+    filter 0.2s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 35px rgba(0, 242, 254, 0.9),
+    0 0 50px rgba(189, 0, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn-submit:active {
+  transform: translateY(1px);
+}
+
+.submit-arrow-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.btn-submit:hover .submit-arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Error / Feedback message */
+.feedback-msg {
+  height: 20px;
+  font-size: 0.85rem;
+  color: #F87171;
+  margin-top: 6px;
+  padding-left: 22px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  text-shadow: 0 0 8px rgba(248, 113, 113, 0.4);
+}
+
+.feedback-msg.is-visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Toast Notification: Cyber Neon Style
+   ========================================================================== */
+.toast-notification {
+  position: fixed;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-60px);
+  background: rgba(7, 15, 35, 0.94);
+  border: 1px solid rgba(0, 242, 254, 0.45);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 
+    0 0 30px rgba(0, 242, 254, 0.35),
+    0 15px 35px rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: 
+    transform 0.4s var(--ease-spring),
+    opacity 0.4s ease;
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #070F26;
+}
+
+.toast-icon svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 3;
+}
+
+.toast-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #F8FAFC;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0 1.25rem;
+    height: 68px;
+  }
+  
+  .logo-brand-text {
+    font-size: 1.05rem;
+  }
+
+  .site-title {
+    font-size: 1.35rem;
+  }
+  
+  .hero-title {
+    font-size: 1.7rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .url-dock {
+    width: 92%;
+  }
+
+  .url-dock.is-bottom {
+    top: calc(100% - 95px);
+  }
+
+  .input-box-container {
+    padding: 6px 8px 6px 14px;
+  }
+
+  .btn-submit {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+  }
+
+  .qr-code-box {
+    min-width: 200px;
+    min-height: 200px;
+  }
+
+  .qr-stage {
+    top: calc(50% - 35px);
+  }
+}

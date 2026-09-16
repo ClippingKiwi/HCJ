@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Maker - Video to GIF</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome 아이콘 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GIF 변환 라이브러리 (gifshot) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gifshot/0.3.2/gifshot.min.js"></script>
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="navbar">
+        <div class="nav-left">
+            <!-- 유튜브 박스 대신 빨간 삼각형 재생 아이콘 적용 -->
+            <i class="fa-solid fa-play logo-icon"></i>
+            <span class="logo-text">GIF Maker</span>
+        </div>
+        <div class="nav-right">
+            <span class="badge">Video to GIF</span>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="main-container">
+        <!-- 타이틀 세션 -->
+        <section class="hero">
+            <!-- 텍스트 화살표 대신 화살표 아이콘 적용 -->
+            <h1 class="main-title">
+                Video <i class="fa-solid fa-arrow-right title-arrow"></i> GIF
+            </h1>
+            <p class="sub-title">당신만의 재밌는 짤을 제작해보세요!</p>
+        </section>
+
+        <!-- 드래그 앤 드롭 업로드 구역 -->
+        <section class="upload-section">
+            <div class="drop-zone" id="dropZone">
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <p class="drop-text">동영상 파일을 이곳에 드래그 앤 드롭하세요</p>
+                <p class="drop-subtext">또는</p>
+                <button class="upload-btn" id="uploadBtn">파일 선택</button>
+                <input type="file" id="fileInput" accept="video/*" hidden>
+            </div>
+        </section>
+
+        <!-- 업로드 파일 목록 영역 -->
+        <section class="file-list-section">
+            <div class="file-list" id="fileList">
+                <!-- 파일 추가 시 JS로 목록 생성 -->
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

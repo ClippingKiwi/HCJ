@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>문서 분석기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- PDF 파싱 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- DOCX(zip) 파싱 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">📄</span>
+      <h1>문서 분석기</h1>
+      <p>PDF 또는 DOCX 파일을 올리면 글자·단어·공백·이미지 개수를 알려드려요.</p>
+    </header>
+
+    <section class="panel">
+      <div class="dropzone" id="dropzone">
+        <span class="drop-icon">📥</span>
+        <p class="drop-title">파일을 여기에 끌어다 놓으세요</p>
+        <p class="drop-sub">또는 클릭해서 선택 · PDF / DOCX (최대 50MB)</p>
+        <input type="file" id="fileInput" accept=".pdf,.docx" hidden />
+      </div>
+
+      <div class="file-info" id="fileInfo" hidden>
+        <span id="fileName">-</span>
+        <span class="chip" id="fileMeta">-</span>
+      </div>
+
+      <p class="error" id="errorMsg" hidden></p>
+      <p class="loading" id="loading" hidden>문서를 분석하는 중입니다...</p>
+    </section>
+
+    <section id="resultArea" hidden>
+      <div class="stat-grid">
+        <div class="stat"><span class="stat-label">글자 수 (공백 포함)</span><strong id="charAll">0</strong></div>
+        <div class="stat"><span class="stat-label">글자 수 (공백 제외)</span><strong id="charNoSpace">0</strong></div>
+        <div class="stat accent"><span class="stat-label">단어 수</span><strong id="wordCount">0</strong></div>
+        <div class="stat"><span class="stat-label">공백 개수</span><strong id="spaceCount">0</strong></div>
+        <div class="stat accent"><span class="stat-label">이미지 개수</span><strong id="imageCount">0</strong></div>
+        <div class="stat"><span class="stat-label">페이지 / 문단 수</span><strong id="pageCount">-</strong></div>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-title">추출된 텍스트 미리보기</h3>
+        <pre class="preview" id="preview"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="docstat.js"></script>
+</body>
+</html>

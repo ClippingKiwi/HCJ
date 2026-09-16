@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lorem Ipsum 생성기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">📝</span>
+      <h1>Lorem Ipsum 생성기</h1>
+      <p>슬라이더를 움직이면 글자 수에 맞춰 더미 텍스트가 실시간으로 바뀝니다.</p>
+    </header>
+
+    <section class="panel">
+      <div class="slider-head">
+        <label for="lenRange">생성할 글자 수</label>
+        <span class="len-badge"><strong id="lenValue">150</strong>자</span>
+      </div>
+
+      <input type="range" id="lenRange" class="slider" min="10" max="1000" step="10" value="150" />
+      <div class="slider-scale"><span>10</span><span>500</span><span>1000</span></div>
+
+      <div class="quick-row">
+        <button type="button" class="chip-btn" data-len="50">50자</button>
+        <button type="button" class="chip-btn" data-len="150">150자</button>
+        <button type="button" class="chip-btn" data-len="300">300자</button>
+        <button type="button" class="chip-btn" data-len="500">500자</button>
+        <button type="button" class="chip-btn" data-len="1000">1000자</button>
+      </div>
+
+      <div class="option-row">
+        <label class="check"><input type="checkbox" id="startClassic" checked /><span>"Lorem ipsum dolor sit amet"으로 시작</span></label>
+        <label class="check"><input type="checkbox" id="wordBreak" /><span>단어 단위로 자르기(글자 수 근사)</span></label>
+      </div>
+
+      <div class="tool-row">
+        <span class="hint" id="meta">-</span>
+        <div class="btn-group">
+          <button type="button" class="ghost-btn" id="regenBtn">🔄 새로 생성</button>
+          <button type="button" class="ghost-btn" id="copyBtn">📋 복사</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3 class="panel-title">생성된 텍스트</h3>
+      <p class="lorem-output" id="output"></p>
+    </section>
+  </main>
+
+  <script src="lorem.js"></script>
+</body>
+</html>

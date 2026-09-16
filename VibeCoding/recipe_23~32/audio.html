@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오디오 편집기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">🎧</span>
+      <h1>오디오 편집기</h1>
+      <p>구간 자르기 · 볼륨 조절 · 포맷 변환을 브라우저에서 바로 처리합니다.</p>
+    </header>
+
+    <!-- 업로드 -->
+    <section class="panel">
+      <label class="up-zone" id="upZone" for="fileInput">
+        <span class="up-icon">🎵</span>
+        <strong class="up-title">오디오 파일을 놓거나 클릭해서 선택</strong>
+        <span class="up-sub">MP3 · WAV · M4A · OGG · FLAC (최대 60MB)</span>
+        <input type="file" id="fileInput" accept="audio/*" hidden />
+      </label>
+
+      <div class="file-meta" id="fileMeta" hidden>
+        <span class="file-name" id="fileName">-</span>
+        <span class="file-size" id="fileSpec">-</span>
+        <button type="button" class="chip-x lg" id="resetBtn" aria-label="파일 제거">✕</button>
+      </div>
+
+      <p class="error" id="errorMsg" hidden></p>
+    </section>
+
+    <!-- 파형 & 편집 -->
+    <section class="panel" id="editPanel" hidden>
+      <div class="wave-box">
+        <canvas id="wave" class="wave-canvas" width="900" height="200"></canvas>
+        <p class="wave-tip">드래그로 구간 선택 · 클릭으로 재생 위치 지정</p>
+      </div>
+
+      <div class="transport">
+        <button type="button" class="round-btn" id="playBtn" title="재생/일시정지">▶</button>
+        <button type="button" class="round-btn" id="stopBtn" title="정지">■</button>
+        <label class="loop-label"><input type="checkbox" id="loopSel" /> 선택 구간 반복</label>
+        <span class="time-read mono" id="timeRead">00:00.0 / 00:00.0</span>
+      </div>
+
+      <div class="sel-row">
+        <div class="sel-field">
+          <label for="selStart">선택 시작 (초)</label>
+          <input type="number" id="selStart" step="0.01" min="0" value="0" />
+        </div>
+        <div class="sel-field">
+          <label for="selEnd">선택 끝 (초)</label>
+          <input type="number" id="selEnd" step="0.01" min="0" value="0" />
+        </div>
+        <button type="button" class="ghost-btn" id="selAllBtn">전체 선택</button>
+        <button type="button" class="ghost-btn" id="selClearBtn">선택 해제</button>
+      </div>
+
+      <h3 class="panel-title mt">✂️ 구간 편집</h3>
+      <div class="btn-grid">
+        <button type="button" class="ghost-btn" id="trimBtn">선택 구간만 남기기</button>
+        <button type="button" class="ghost-btn" id="cutBtn">선택 구간 삭제</button>
+        <button type="button" class="ghost-btn" id="fadeInBtn">페이드 인</button>
+        <button type="button" class="ghost-btn" id="fadeOutBtn">페이드 아웃</button>
+        <button type="button" class="ghost-btn" id="silenceBtn">선택 구간 무음화</button>
+        <button type="button" class="ghost-btn" id="normBtn">볼륨 정규화</button>
+      </div>
+
+      <h3 class="panel-title mt">🔊 볼륨</h3>
+      <div class="range-row">
+        <input type="range" id="gainRange" class="range-input" min="-24" max="24" step="0.5" value="0" />
+        <output class="range-out mono" id="gainOut">0.0 dB</output>
+      </div>
+      <p class="field-hint">슬라이더는 재생에 즉시 반영됩니다. 파일에 반영하려면 아래 버튼을 누르세요.</p>
+      <div class="btn-grid">
+        <button type="button" class="ghost-btn" id="applyGainAllBtn">전체에 적용</button>
+        <button type="button" class="ghost-btn" id="applyGainSelBtn">선택 구간에 적용</button>
+      </div>
+
+      <div class="tool-row mt">
+        <span class="hint" id="histInfo">편집 없음</span>
+        <div class="btn-group">
+          <button type="button" class="ghost-btn" id="undoBtn" disabled>되돌리기</button>
+          <button type="button" class="ghost-btn" id="revertBtn">원본 복원</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 내보내기 -->
+    <section class="panel" id="exportPanel" hidden>
+      <h3 class="panel-title">💾 내보내기</h3>
+
+      <div class="exp-grid">
+        <div class="sel-field">
+          <label for="fmtSel">포맷</label>
+          <select id="fmtSel">
+            <option value="wav16">WAV (16bit PCM)</option>
+            <option value="wav32">WAV (32bit float)</option>
+            <option value="mp3-320">MP3 320kbps</option>
+            <option value="mp3-192">MP3 192kbps</option>
+            <option value="mp3-128">MP3 128kbps</option>
+          </select>
+        </div>
+        <div class="sel-field">
+          <label for="rateSel">샘플레이트</label>
+          <select id="rateSel">
+            <option value="0">원본 유지</option>
+            <option value="48000">48,000 Hz</option>
+            <option value="44100">44,100 Hz</option>
+            <option value="22050">22,050 Hz</option>
+          </select>
+        </div>
+        <div class="sel-field">
+          <label for="chSel">채널</label>
+          <select id="chSel">
+            <option value="0">원본 유지</option>
+            <option value="2">스테레오</option>
+            <option value="1">모노</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="bar-wrap" id="expWrap" hidden>
+        <div class="bar"><i id="expBar"></i></div>
+        <p class="hint" id="expMsg">인코딩 중…</p>
+      </div>
+
+      <button type="button" class="primary-btn" id="exportBtn">파일 저장 ⬇</button>
+      <p class="field-hint" id="expNote">MP3 인코딩은 길이에 따라 수 초 걸릴 수 있습니다.</p>
+    </section>
+  </main>
+
+  <!-- MP3 인코더 -->
+  <script src="https://cdn.jsdelivr.net/npm/@breezystack/lamejs@1.2.7/lame.min.js"></script>
+  <script src="audio.js"></script>
+</body>
+</html>

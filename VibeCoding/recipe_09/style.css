@@ -1,0 +1,388 @@
+:root {
+  --bg: #0f1218;
+  --surface: #171c25;
+  --surface-2: #1e2532;
+  --border: #2b3444;
+  --text: #e8ecf3;
+  --text-dim: #9aa6b8;
+  --accent: #5b8cff;
+  --accent-soft: rgba(91, 140, 255, 0.12);
+  --danger: #ff6b6b;
+  --radius: 14px;
+  --header-h: 60px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Header ===== */
+.header {
+  height: var(--header-h);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__icon {
+  width: 26px;
+  height: 26px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.header__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.header__right {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+/* ===== Main ===== */
+.main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+/* ===== Hero ===== */
+.hero {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+.hero__title {
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+  font-weight: 800;
+  margin: 0 0 14px;
+  background: linear-gradient(90deg, #6ea8ff, #b98cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__desc {
+  font-size: 1.03rem;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+
+.hero__privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 0;
+}
+
+.hero__lock {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #4ecb8b;
+}
+
+/* ===== Dropzone ===== */
+.dropzone {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 44px 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  outline: none;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.dropzone.is-dragover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: scale(1.01);
+}
+
+.dropzone__icon {
+  width: 46px;
+  height: 46px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.dropzone__main {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.dropzone__sub {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin: 0 0 18px;
+}
+
+.dropzone__error {
+  min-height: 18px;
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+  color: var(--danger);
+}
+
+/* ===== Buttons ===== */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 11px 22px;
+  cursor: pointer;
+  transition: filter 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+
+.btn--primary:hover { filter: brightness(1.1); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.btn--ghost:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ===== Editor View (desktop: GIF left / panel right) ===== */
+.editor-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+  align-items: start;
+}
+
+.preview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.preview__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background:
+    linear-gradient(45deg, #222834 25%, transparent 25%, transparent 75%, #222834 75%) 0 0 / 22px 22px,
+    linear-gradient(45deg, #222834 25%, transparent 25%, transparent 75%, #222834 75%) 11px 11px / 22px 22px,
+    var(--surface-2);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.preview__img {
+  max-width: 100%;
+  max-height: 65vh;
+  display: block;
+  border-radius: 4px;
+}
+
+.preview__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0 12px;
+  font-size: 0.85rem;
+}
+
+.preview__name {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.preview__info { color: var(--text-dim); }
+
+/* ===== Edit Panel (placeholder) ===== */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel__title {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.panel__placeholder {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+/* ===== Mobile (GIF top / panel bottom) ===== */
+@media (max-width: 860px) {
+  .editor-view {
+    grid-template-columns: 1fr;
+  }
+
+  .panel { min-height: 240px; }
+
+  .main { padding: 24px 14px 48px; }
+
+  .dropzone { padding: 34px 18px; }
+
+  .header__right { font-size: 0.8rem; }
+}
+
+/* ===== 화면 전환용 유틸리티 (최상단에 배치) ===== */
+[hidden],
+.is-hidden {
+  display: none !important;
+}
+
+/* ===== Editor View (desktop: GIF left / panel right) ===== */
+.editor-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+  align-items: start;
+  animation: fadeUp 0.28s ease;
+}
+
+/* ===== Preview Header ===== */
+.preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview__header-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+/* 다운로드 버튼 */
+.btn--download {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  font-size: 0.88rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+
+.btn--download:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.btn--download:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn--download:disabled {
+  background: var(--surface-2);
+  color: var(--text-dim);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn__icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+/* 다운로드 완료 피드백 */
+.btn--download.is-done {
+  background: #3fa86a;
+}
+
+/* 업로드 직후 부드럽게 등장 */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 860px) {
+  /* ...기존 규칙 유지... */
+
+  .preview__header-title { font-size: 0.98rem; }
+  .btn--download { padding: 7px 12px; font-size: 0.82rem; }
+}

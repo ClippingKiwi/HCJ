@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 병합기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">📚</span>
+      <h1>PDF 병합기</h1>
+      <p>여러 PDF를 올리고 순서를 정한 뒤 하나의 파일로 합치세요.</p>
+    </header>
+
+    <section class="panel">
+      <div class="dropzone" id="dropzone">
+        <span class="drop-icon">📥</span>
+        <p class="drop-title">PDF 파일을 끌어다 놓으세요</p>
+        <p class="drop-sub">또는 클릭해서 선택 · 여러 개 동시 선택 가능 (개당 최대 100MB)</p>
+        <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple hidden />
+      </div>
+
+      <p class="error" id="errorMsg" hidden></p>
+
+      <ul class="file-list" id="fileList"></ul>
+
+      <div class="tool-row" id="summaryRow" hidden>
+        <span class="hint" id="summary">-</span>
+        <div class="btn-group">
+          <button type="button" class="ghost-btn" id="sortNameBtn">가나다순 정렬</button>
+          <button type="button" class="ghost-btn" id="clearBtn">전체 삭제</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="field">
+        <label for="outName">저장할 파일 이름</label>
+        <input type="text" id="outName" value="merged" placeholder="merged" />
+      </div>
+      <button type="button" class="primary-btn" id="mergeBtn" disabled>PDF 병합하기 🔗</button>
+      <p class="loading" id="loading" hidden>병합 중입니다...</p>
+      <p class="success" id="successMsg" hidden></p>
+    </section>
+  </main>
+
+  <script src="pdfmerge.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart QR - 빠르고 스마트한 QR코드 생성기</title>
+  <meta name="description" content="URL을 간편하게 고화질 QR코드로 변환하고 JPG 파일로 즉시 다운로드할 수 있는 Smart QR 서비스입니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Glow & Grid Effects -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <div class="bg-grid-overlay"></div>
+  <div class="bg-cyber-horizon"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="symbol-container" id="symbolWrapper" title="QR Creator">
+          <img src="qr_symbol.png" alt="Smart QR Symbol" class="logo-symbol" id="logoSymbol">
+        </div>
+        <span class="logo-brand-text" id="logoBrandText">QR Creator</span>
+      </div>
+      <div class="header-right">
+        <h1 class="site-title" id="siteTitle">Smart QR</h1>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+      <!-- QR Stage (Center) -->
+      <section class="qr-stage" id="qrStage" aria-live="polite">
+        <div class="qr-card-wrapper" id="qrCardWrapper">
+          <div class="qr-card" id="qrCard" role="button" tabindex="0" title="클릭하여 JPG 파일 다운로드" aria-label="생성된 QR코드. 클릭하면 JPG 파일로 다운로드됩니다.">
+            <!-- QR Code Canvas / Image Container -->
+            <div class="qr-code-box" id="qrcode"></div>
+            
+            <!-- Hover Overlay -->
+            <div class="qr-overlay" id="qrOverlay">
+              <div class="download-badge">
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>JPG 다운로드</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action & Hint -->
+          <div class="qr-meta-info" id="qrMetaInfo">
+            <p class="qr-hint-text">
+              <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              QR코드를 클릭하면 <strong>JPG 파일</strong>로 다운로드됩니다
+            </p>
+            <div class="current-target-url" id="currentTargetUrl" title=""></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- URL Input Dock (Moves from center to bottom) -->
+      <section class="url-dock is-centered" id="urlDock">
+        <div class="dock-inner">
+          <div class="intro-headline" id="introHeadline">
+            <h2 class="hero-title">어떤 링크든 스마트한 QR코드로</h2>
+            <p class="hero-subtitle">URL을 입력하고 확인을 누르면 즉시 고화질 QR코드가 생성됩니다.</p>
+          </div>
+
+          <form id="urlForm" class="url-form" novalidate autocomplete="off">
+            <div class="input-box-container">
+              <div class="input-prefix-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="urlInput" 
+                class="url-input-field" 
+                placeholder="https://... 또는 변환할 웹사이트 주소를 입력하세요" 
+                autocomplete="off"
+                spellcheck="false"
+                required
+                autofocus
+              >
+              <button type="button" class="btn-clear" id="btnClear" aria-label="입력 내용 지우기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+              <button type="submit" class="btn-submit" id="btnSubmit">
+                <span>확인</span>
+                <svg class="submit-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+            <div class="feedback-msg" id="feedbackMsg"></div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toastNotification" role="status" aria-live="polite">
+      <div class="toast-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <span class="toast-text" id="toastText">다운로드가 시작되었습니다.</span>
+    </div>
+  </div>
+
+  <!-- QR Code Library -->
+  <script src="qrcode.min.js"></script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>핀볼 이름 추첨기 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">🎰</span>
+      <h1>핀볼 이름 추첨기</h1>
+      <p>구슬이 장애물을 튕기며 떨어져 도착한 칸의 이름이 당첨됩니다.</p>
+    </header>
+
+    <section class="panel">
+      <div class="field">
+        <label for="nameInput">참가자 이름 (2~12명)</label>
+        <div class="pw-wrap">
+          <input type="text" id="nameInput" maxlength="12" placeholder="이름 입력 후 Enter" autocomplete="off" />
+          <button type="button" class="ghost-btn" id="addBtn">추가</button>
+        </div>
+        <p class="field-hint">쉼표( , )나 줄바꿈으로 여러 명을 한 번에 붙여넣을 수 있어요.</p>
+      </div>
+
+      <ul class="name-chips" id="nameChips"></ul>
+
+      <div class="tool-row">
+        <span class="hint" id="nameCount">0명 등록됨</span>
+        <div class="btn-group">
+          <button type="button" class="ghost-btn" id="sampleBtn">예시 채우기</button>
+          <button type="button" class="ghost-btn" id="clearBtn">전체 삭제</button>
+        </div>
+      </div>
+
+      <p class="error" id="errorMsg" hidden></p>
+    </section>
+
+    <section class="panel">
+      <div class="board-wrap">
+        <canvas id="board" class="pin-canvas" width="480" height="430"></canvas>
+        <div class="winner-banner" id="winnerBanner" hidden>
+          <span class="winner-label">🎉 당첨</span>
+          <strong class="winner-name" id="winnerName">-</strong>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="primary-btn" id="launchBtn">구슬 발사 🚀</button>
+        <button type="button" class="ghost-btn wide" id="excludeBtn" disabled>당첨자 제외 후 재추첨</button>
+      </div>
+    </section>
+
+    <section class="panel" id="historyPanel" hidden>
+      <h3 class="panel-title">추첨 기록</h3>
+      <ol class="history-list" id="historyList"></ol>
+    </section>
+  </main>
+
+  <script src="pinball.js"></script>
+</body>
+</html>

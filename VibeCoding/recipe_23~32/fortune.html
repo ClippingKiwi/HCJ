@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘의 운세 · MINI APPS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap narrow">
+    <a class="back-link" href="index.html">← 메인으로</a>
+
+    <header class="page-head">
+      <span class="page-icon">🔮</span>
+      <h1>오늘의 운세</h1>
+      <p>정보를 입력하고 나의 기운을 선택하세요.</p>
+    </header>
+
+    <section class="panel">
+      <form id="fortuneForm" novalidate>
+        <div class="field">
+          <label for="name">이름</label>
+          <input type="text" id="name" placeholder="홍길동" maxlength="20" required />
+        </div>
+
+        <div class="field">
+          <label for="birth">생일</label>
+          <input type="date" id="birth" required />
+        </div>
+
+        <div class="field">
+          <label>성별</label>
+          <div class="radio-row">
+            <label class="radio"><input type="radio" name="gender" value="남성" checked /><span>남성</span></label>
+            <label class="radio"><input type="radio" name="gender" value="여성" /><span>여성</span></label>
+            <label class="radio"><input type="radio" name="gender" value="선택 안 함" /><span>선택 안 함</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>오늘의 기운</label>
+          <div class="element-grid" id="elementGrid">
+            <button type="button" class="element" data-element="fire">🔥<span>불</span></button>
+            <button type="button" class="element" data-element="water">💧<span>물</span></button>
+            <button type="button" class="element" data-element="wood">🌳<span>나무</span></button>
+            <button type="button" class="element" data-element="earth">⛰️<span>땅</span></button>
+            <button type="button" class="element" data-element="wind">🌬️<span>바람</span></button>
+          </div>
+        </div>
+
+        <p class="error" id="errorMsg" hidden></p>
+        <button type="submit" class="primary-btn">운세 보기 ✨</button>
+      </form>
+    </section>
+
+    <section class="panel result-panel" id="result" hidden></section>
+  </main>
+
+  <script src="fortune.js"></script>
+</body>
+</html>
