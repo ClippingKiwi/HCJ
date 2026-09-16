@@ -8,10 +8,10 @@
 
 | 레시피 | 프로젝트 | 바로가기 |
 | --- | --- | --- |
-| Recipe_04 | 청첩장 | [바로가기](Recipe_04/) |
-| Recipe_05 | QR 변환기 | [바로가기](Recipe_05/) |
-| Recipe_06 | 파일 압축기 | [바로가기](Recipe_06/) |
-| Recipe_07 | 이미지 편집기 | [바로가기](Recipe_07/) |
-| Recipe_08 | GIF 변환기 | [바로가기](Recipe_08/) |
-| Recipe_09 | GIF 편집기 | [바로가기](Recipe_09/) |
-| Recipe_23~32 | 미니 웹 앱 사이트 | [바로가기](Recipe_23~32/) |
+| Recipe_04 | 청첩장 | [바로가기](recipe_04/) |
+| Recipe_05 | QR 변환기 | [바로가기](recipe_05/) |
+| Recipe_06 | 파일 압축기 | [바로가기](recipe_06/) |
+| Recipe_07 | 이미지 편집기 | [바로가기](recipe_07/) |
+| Recipe_08 | GIF 변환기 | [바로가기](recipe_08/) |
+| Recipe_09 | GIF 편집기 | [바로가기](recipe_09/) |
+| Recipe_23~32 | 미니 웹 앱 사이트 | [바로가기](recipe_23~32/) |
