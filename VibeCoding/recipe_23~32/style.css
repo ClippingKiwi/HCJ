@@ -448,7 +448,24 @@ input[type="password"]:focus, input[type="datetime-local"]:focus { border-color:
 }
 
 /* ═══════════ 핀볼 추첨기 ═══════════ */
-.name-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.pinball-wrap { max-width: 1040px; }
+.pinball-grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 528px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.pinball-col-board,
+.pinball-col-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pinball-col-board .panel,
+.pinball-col-side .panel {
+  margin-bottom: 0;
+}
+.name-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; min-height: 38px; }
 .chip-name {
   display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px 7px 14px;
   font-size: 14px; background: rgba(0,0,0,.25);
@@ -462,9 +479,14 @@ input[type="password"]:focus, input[type="datetime-local"]:focus { border-color:
 
 .board-wrap { position: relative; }
 .pin-canvas {
-  width: 100%; height: auto; display: block; border-radius: 14px;
+  width: 100%; aspect-ratio: 480 / 530; height: auto; display: block; border-radius: 14px;
   border: 1px solid var(--border); background: #0a0c1a;
+  user-select: none; -webkit-user-select: none;
 }
+.launch-hint {
+  margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center;
+}
+.launch-hint strong { color: var(--accent2); }
 
 .winner-banner {
   position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%);
@@ -478,6 +500,12 @@ input[type="password"]:focus, input[type="datetime-local"]:focus { border-color:
   font-weight: 900; letter-spacing: -1px;
 }
 .pop { animation: popIn .5s cubic-bezier(.18,1.5,.4,1); }
+
+@media (max-width: 880px) {
+  .pinball-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ═══════════ 공통 : 업로드 존 ═══════════ */
 .up-zone {
