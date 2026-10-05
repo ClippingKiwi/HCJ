@@ -5,7 +5,7 @@
 ## 주요 내용
 - 프로필 카드형 레이아웃 (이름, 소개, 연락처)
 - Google Fonts(Noto Sans KR, Poppins) 적용
-- 다크모드 등 토글 인터랙션 (`toggle.js`)
+- 다크모드 토글 인터랙션 (`toggle.js`)
 
 ## 파일 구성
 - `index.html` : 메인 페이지
